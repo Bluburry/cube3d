@@ -1,5 +1,5 @@
 #include "./libft/libft.h"
-#include "map.h"
+#include "cube.h"
 
 int	close_window(int keycode, t_data *data)
 {

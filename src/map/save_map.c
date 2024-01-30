@@ -1,4 +1,4 @@
-#include "map.h"
+#include "cube.h"
 
 int		save_texture_path(char *path, t_data *data)
 {

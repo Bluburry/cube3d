@@ -1,5 +1,4 @@
-#include "./libft/libft.h"
-#include "map.h"
+#include "cube.h"
 
 void	read_file(char *file, t_data *data)
 {

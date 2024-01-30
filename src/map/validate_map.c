@@ -1,4 +1,4 @@
-#include "map.h"
+#include "cube.h"
 
 int	check_matrix(t_data *data, int i, int j)
 {
