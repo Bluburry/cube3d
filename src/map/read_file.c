@@ -9,7 +9,7 @@ void	read_file(char *file, t_data *data)
 	data->new_map.map = malloc(sizeof(char *) * 23);
 	while (fd > 0)
 	{
-		ptrs = get_next_line(fd);
+		ptrs = get_next_line(fd, 1000);
 		if (!ptrs)
 			break ;
 		if (!ft_strncmp(ptrs, "NO", 2) || !ft_strncmp(ptrs, "SO", 2) \

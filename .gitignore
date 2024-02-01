@@ -1,0 +1,7 @@
+*.o
+*/*.a
+*.a
+mlx_linux/*.a
+mlx_linux/obj/
+mlx_linux/test/
+obj/

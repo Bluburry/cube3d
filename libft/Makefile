@@ -1,90 +1,58 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jegger-s <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/08 12:49:05 by jegger-s          #+#    #+#              #
-#    Updated: 2022/11/08 12:49:08 by jegger-s         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME	= libft.a
 
-CC = cc
-SRC = ft_bzero.c\
-	ft_calloc.c\
-	ft_isalnum.c\
-	ft_isalpha.c\
-	ft_isascii.c\
-	ft_isdigit.c\
-	ft_isprint.c\
-	ft_itoa.c\
-      	ft_memchr.c\
-      	ft_memcmp.c\
-      	ft_memcpy.c\
-      	ft_memmove.c\
-      	ft_memset.c\
-      	ft_putchar_fd.c\
-      	ft_putendl_fd.c\
-      	ft_putnbr_fd.c\
-      	ft_putstr_fd.c\
-      	ft_split.c\
-      	ft_strchr.c\
-      	ft_strdup.c\
-      	ft_striteri.c\
-      	ft_strjoin.c\
-	ft_strlcat.c\
-	ft_strlcpy.c\
-	ft_strlen.c\
-	ft_strmapi.c\
-	ft_strncmp.c\
-	ft_strnstr.c\
-	ft_strrchr.c\
-	ft_strtrim.c\
-	ft_substr.c\
-	ft_tolower.c\
-	ft_toupper.c\
-	ft_atoi.c\
-	get_next_line.c\
-	get_next_line_utils.c\
+# flags
+CC		= cc
+INCLUDE	= ../include
+CFLAGS	= -Wall -Wextra -Werror -I $(INCLUDE)
+RM		= rm -rf
+AR		= ar -rcs
 
-SRC_B = ft_lstnew.c\
-		ft_lstadd_front.c\
-		ft_lstclear.c\
-		ft_lstdelone.c\
-		ft_lstiter.c\
-		ft_lstlast.c\
-		ft_lstadd_back.c\
-		ft_lstsize.c\
-		ft_lstmap.c
-		
-NAME = libft.a
-FLAGS = -Wall -Wextra -Werror -g
-OBJS = $(SRC:.c=.o)
-OBJS_B = $(SRC_B:.c=.o)
 
-all: $(NAME)
-	
-$(NAME): $(OBJS)
-	ar -crs $@ $^
-	@echo "\033[90m[\033[32mSuccess\033[90m]\033[32m Successfully compiled Libft.\033[0m"
+# folders
+SRCS	= .
+FOLDERS	= printf lib gnl
+VPATH	= $(FOLDERS)
+OUTPUT	= out
 
-bonus:	$(OBJS_B) $(OBJS)
-	ar -crs $(NAME) $^
-	@echo "Successfully compiled Libft with Bonus."
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $^ -o $@
-	@echo "\033[90m[\033[32mOK\033[90m]\033[34m Compiling $<\033[0m"
+# files
+_PRINTF	= ft_printf ft_utils ft_printhexa ft_printptr 
+_GNL	= get_next_line get_next_line_bonus get_next_line_utils
+_LIBFT	= ft_atoi  ft_bzero  ft_calloc  ft_isalnum  ft_isalpha \
+	ft_isascii ft_isdigit ft_isprint ft_itoa ft_memchr \
+	ft_memcmp ft_memcpy ft_memmove ft_memset ft_putchar_fd \
+	ft_putendl_fd ft_putnbr_fd ft_putstr_fd ft_split \
+	ft_strlcat ft_strchr ft_strlcpy ft_strncmp ft_strdup \
+	ft_striteri ft_strjoin ft_strlen ft_strmapi ft_strnstr \
+	ft_strrchr ft_substr ft_strtrim ft_tolower ft_toupper \
+	ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast \
+	ft_lstadd_back ft_lstdelone ft_lstclear \
+	ft_check_alnum ft_cmpstr
 
-clean:
-	rm -rf $(OBJS) $(OBJS_B)
-	@echo "\033[90m[\033[91mDeleting\033[90m]\033[31m Object files deleted\033[0m"
-	
-fclean: clean
-	rm -rf $(NAME)
-	@echo "\033[90m[\033[91mDeleting\033[90m]\033[31m Libft.a deleted.\033[0m"
-	
+_FILES	= $(_PRINTF) $(_GNL) $(_LIBFT)
+OBJS	= $(_FILES:%=%.o)
+TARGET	= $(addprefix $(OUTPUT)/, $(OBJS))
+
+
+all : $(NAME)
+
+$(NAME) : $(OUTPUT) $(TARGET)
+	@$(AR) $(NAME) $(TARGET)
+
+$(OUTPUT)/%.o : %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OUTPUT) : 
+	@mkdir -p $(OUTPUT)
+
+clean : 
+	@$(RM) $(OUTPUT)
+
+fclean : clean
+	@$(RM) $(NAME)
+
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.SILENT:
+
+.PHONY: all, clean, fclean, re
