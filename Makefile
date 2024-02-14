@@ -16,12 +16,12 @@ VG				= valgrind --leak-check=full --suppressions=sup --track-origins=yes #--log
 #provavelmente ter de alterar alguma cena para melhor incluir minilibx
 
 # DIRECTORIES
-DIRS	= calcs draw hooks map
+DIRS	= calcs draw hooks map init
 PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
 vpath %.c src $(PATHS)
 
 # FILES
-SRCS		= cube calcs draw hook_functions map_init minimap read_file \
+SRCS		= cube calcs draw hook_functions init minimap read_file \
 		save_map validate_map
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
 
