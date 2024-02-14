@@ -4,7 +4,7 @@ void	get_player_position(t_data *data)
 {
 	int		x;
 	int		y;
-	char 	pos;
+	char	pos;
 
 	x = 0;
 	while (data->new_map.map[x])
