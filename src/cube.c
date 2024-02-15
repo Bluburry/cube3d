@@ -39,20 +39,30 @@ int	init2(t_data *data, char **av)
 
 int	main(int ac, char **av)
 {
-	t_data		data;
-	t_image		img;
-	t_minimap	minimap;
-	t_vector	*stk;
-
 	if (ac != 2)
 	{
-		printf("Invalid number of arguments.\n");
-		return (0);
+		printf("WHERE IS THE THE MAP!!\n");
+		return 0;
 	}
-	init(&data, &img, &minimap, stk);
-	if (init2(&data, av))
-		return (0);
-	mlx_put_image_to_window(data.mlx, data.win, \
+
+	t_data		data;
+
+	init_data(&data);
+	init_map(&data);
+	read_file(av[1], &data);
+	if (validate_map(&data))
+		printf("Invalid Map.\n");
+	get_player_position(&data);
+	
+	data.mlx = mlx_init();
+    data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3D");
+    
+    init_minimap(&data);
+    draw_lines(&data);
+    draw_rectangles(&data);
+    draw_player(&data);
+
+	mlx_put_image_to_window(data.mlx, data.win,
 		data.minimap.img.mlx_img, 0, 0);
 	mlx_hook(data.win, 17, 1L << 2, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &close_window, &data);

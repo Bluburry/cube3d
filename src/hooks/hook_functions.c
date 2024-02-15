@@ -9,45 +9,45 @@ void	draw_movements(t_data *data)
 		data->minimap.img.mlx_img, 0, 0);
 }
 
-t_vector	forward_backward(t_data *data, int keycode, t_vector new_pos)
+t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 {
-	if (keycode == MOVE_UP)
-	{
-		new_pos.x = data->player.pos.x + -1 * (data->dir.x * 0.5 / 5);
-		new_pos.y = data->player.pos.y + -1 * (data->dir.y * 0.5 / 5);
-	}
-	else if (keycode == MOVE_DOWN)
-	{
-		new_pos.x = data->player.pos.x + 1 * (data->dir.x * 0.5 / 5);
-		new_pos.y = data->player.pos.y + 1 * (data->dir.y * 0.5 / 5);
-	}
-	return (new_pos);
+	if (keycode == W) // W
+ 	{
+ 		new_pos.x = data->player.pos.x + -1 * (data->dir.x * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + -1 * (data->dir.y * 0.5 / 5);
+ 	}
+ 	else if (keycode == S) // S
+ 	{
+ 		new_pos.x = data->player.pos.x + 1 * (data->dir.x * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + 1 * (data->dir.y * 0.5 / 5);
+ 	}
+ 	return (new_pos);
 }
 
-t_vector	left_right(t_data *data, int keycode, t_vector new_pos)
+t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
 {
-	if (keycode == MOVE_RIGHT)
-	{
-		new_pos.x = data->player.pos.x - -1 * (data->dir.y * 0.5 / 5);
-		new_pos.y = data->player.pos.y + -1 * (data->dir.x * 0.5 / 5);
-	}
-	else if (keycode == MOVE_LEFT)
-	{
-		new_pos.x = data->player.pos.x - 1 * (data->dir.y * 0.5 / 5);
-		new_pos.y = data->player.pos.y + 1 * (data->dir.x * 0.5 / 5);
-	}
-	return (new_pos);
+	if (keycode == D) // D
+ 	{
+ 		new_pos.x = data->player.pos.x - -1 * (data->dir.y * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + -1 * (data->dir.x * 0.5 / 5);
+ 	}
+ 	else if (keycode == A) // A
+ 	{
+ 		new_pos.x = data->player.pos.x - 1 * (data->dir.y * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + 1 * (data->dir.x * 0.5 / 5);
+ 	}
+ 	return (new_pos);
 }
 
-void	movements(int keycode, t_data *data)
+void	move(int keycode, t_data *data)
 {
 	t_vector	new_pos;
 
 	new_pos.x = 0;
 	new_pos.y = 0;
 
-	new_pos = forward_backward(data, keycode, new_pos);
-	new_pos = left_right(data, keycode, new_pos);
+	new_pos = move_forward_backward(data, keycode, new_pos);
+	new_pos = move_left_right(data, keycode, new_pos);
 	if (data->new_map.map[(int)new_pos.y][(int)new_pos.x] != '1')
 	{
 		data->player.pos.x = new_pos.x;
@@ -59,8 +59,8 @@ void	movements(int keycode, t_data *data)
 void	rotate(int keycode, t_data *data)
 {
 	double	dist;
-
- 	if (keycode == ROTATE_LEFT)
+ 	
+ 	if (keycode == LEFT) // left arrow
  	{
 		data->dir.x = data->dir.x * cos(1 * 0.05) - data->dir.y * sin(1 * 0.05);
 		data->dir.y = data->dir.y * cos(1 * 0.05) + data->dir.x * sin(1 * 0.05);
@@ -69,7 +69,7 @@ void	rotate(int keycode, t_data *data)
 		data->dir.y /= dist;
  		draw_movements(data);
  	}
- 	else if (keycode == ROTATE_RIGHT)
+ 	else if (keycode == RIGHT) // right arrow
  	{
 		data->dir.x = data->dir.x * cos(-1 * 0.05) - data->dir.y * sin(-1 * 0.05);
 		data->dir.y = data->dir.y * cos(-1 * 0.05) + data->dir.x * sin(-1 * 0.05);
@@ -84,17 +84,17 @@ void	rotate(int keycode, t_data *data)
 int	close_window(int keycode, t_data *data)
 {
 	printf("%d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == ESC)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 		exit(0);
  	}
- 	else if (keycode == 65361 || keycode == 65363)
+ 	else if (keycode == LEFT || keycode == RIGHT)
  		rotate(keycode, data);
  	else
- 		movements(keycode, data);
+ 		move(keycode, data);
 	return (0);
 }
 

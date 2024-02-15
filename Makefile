@@ -1,5 +1,5 @@
 # DEFINITIONS
-NAME			= cube3d
+NAME			= cub3d
 DEPENDENCIES	= include
 CC				= cc
 LIBFT_SRC		= libft

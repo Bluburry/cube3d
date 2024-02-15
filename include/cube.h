@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
+/*   Updated: 2024/02/15 16:05:14 by bluburry         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -6,15 +18,8 @@
 # include <math.h>
 # include "libft.h"
 # include "structs.h"
+# include "keys.h"
 
-# define WIDTH			720
-# define HEIGHT			420
-# define MOVE_LEFT		97
-# define MOVE_RIGHT		100
-# define MOVE_UP		119
-# define MOVE_DOWN		115
-# define ROTATE_LEFT	65361
-# define ROTATE_RIGHT	65363
 
 // --- draw ---
 
@@ -33,7 +38,6 @@ int		close_window(int keycode, t_data *data);
 int		on_destroy(t_data *data);
 void	movements(int keycode, t_data *data);
 
-
 // --- map ---
 
 // init.c
@@ -41,7 +45,6 @@ void	init_map(t_data *data);
 void	set_player_position(t_data *data, int x, int y, int pos);
 void	init_data(t_data *data);
 void	init_minimap(t_data *data);
-void	init_ray(t_raycast *ray);
 
 // minimap.c
 void	get_player_position(t_data *data);

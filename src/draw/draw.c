@@ -94,21 +94,25 @@ void	draw_lines(t_data *data)
 
 void	draw_player(t_data *data)
 {
-	int		i;
 	t_vector	pos;
-	t_vector	ray_pos;
+	int			i;
 
 	i = 0;
-	pos.x = (ceil(data->pos_x) * data->minimap.map_size)
+	pos.x = (ceil(data->player.pos.x) * data->minimap.map_size)
 		- (data->minimap.map_size / 2);
-	pos.y = (ceil(data->pos_y) * data->minimap.map_size)
+	pos.y = (ceil(data->player.pos.y) * data->minimap.map_size)
 		- (data->minimap.map_size / 2);
-	while (i < 720) // Change it
+
+	// printf("pos.x: %f pos.y: %f\n", pos.x, pos.y);
+	// printf("data->dir.x: %f data->dir.y: %f\n", data->dir.x, data->dir.y);	
+	// printf("X: %f - Y: %f  - Cam: %f\n", data->raycast.cast_dir.x, data->raycast.cast_dir.y, cam_x);
+	while (i < WIDTH)
 	{
-		ray_pos.x = ceil(data->stk[i].x * data->minimap.map_size);
-		ray_pos.y = ceil(data->stk[i].y * data->minimap.map_size);
-		draw_line(data, pos, ray_pos, 0x0000FF00);
+		data->raycast.cast_dir.x = data->dir.x;
+		data->raycast.cast_dir.y = data->dir.y;
+		// printf("raycast.cast_dir.x: %f raycast.cast_dir.y: %f - Cam: %f\n", data->raycast.cast_dir.x, data->raycast.cast_dir.y, cam_x);
+		draw_line(data, pos, data->raycast.cast_dir, 0x0000FF0);
 		i++;
 	}
-	draw_rectangle(data, (int)data->pos_x, (int)data->pos_y, 0x00FF0000);
+	draw_rectangle(data, (int)data->player.pos.x, (int)data->player.pos.y, 0x00FF0000);
 }
