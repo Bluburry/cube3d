@@ -27,11 +27,37 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 			data->dir.y = -1;
 		else if (pos == 'N')
 			data->dir.y = 1;
-		printf("\nDirX: %f | DirY: %f\n", data->dir.x, data->dir.y);	
+		// printf("\nDirX: %f | DirY: %f\n", data->dir.x, data->dir.y);	
 		return ;
 	}
 }
 
+void	init_data(t_data *data)
+{
+	t_image		img;
+	t_minimap	minimap;
+	t_raycast	raycast;
+	t_player	player;
+
+	img.mlx_img = NULL;
+	img.addr = NULL;	
+
+	minimap.map_size = 16;
+
+	raycast.cast_dir.x = 0;
+	raycast.cast_dir.y = 0;
+	
+	player.pos.x = 0;
+	player.pos.y = 0;
+
+	data->mlx = NULL;
+	data->win = NULL;
+	data->img = img;
+	data->minimap = minimap;
+	data->raycast = raycast;
+	data->player = player;
+}
+// ## Bonus ##
 void	init_minimap(t_data *data)
 {
 	int	bpp;
@@ -44,66 +70,4 @@ void	init_minimap(t_data *data)
 			data->minimap.height);
 	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
 			data->minimap.img.mlx_img, &bpp, &sl, &end);
-}
-
-void	init_ray(t_raycast *ray)
-{
-	ray->camera_x = 0;
-	ray->cast_dir.x = 0;
-	ray->cast_dir.y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->sidedist.x = 0;
-	ray->sidedist.y = 0;
-	ray->deltadist.x = 0;
-	ray->deltadist.y = 0;
-}
-
-void	init_data(t_data *data)
-{
-	t_image		img;
-	t_minimap	minimap;
-	t_stk		*stk;
-	t_raycast	raycast;
-	t_player	player;
-
-	raycast.cast_dir.x = 0;
-	raycast.cast_dir.y = 0;
-	raycast.sidedist.x = 0;
-	raycast.sidedist.y = 0;
-	raycast.deltadist.x = 0;
-	raycast.deltadist.y = 0;
-	raycast.camera_x = 0;
-	raycast.map_x = 0;
-	raycast.map_y = 0;
-	raycast.step_x = 0;
-	raycast.step_y = 0;
-	raycast.side = 0;
-	
-	player.pos.x = 0;
-	player.pos.y = 0;
-	player.plane.x = 0;
-	player.plane.y = 0;
-	player.dir.x = 0.0;
-	player.dir.y = 0.0;
-
-	data->player = player;
-
-	data->mlx = NULL;
-	data->win = NULL;
-
-	img.mlx_img = NULL;
-	img.addr = NULL;	
-
-	minimap.map_size = 16;
-
-	stk = NULL;
-
-	data->img = img;
-	data->minimap = minimap;
-	data->raycast = raycast;
-	data->stk = stk;
-	data->stk = malloc(sizeof(t_stk) * 720);
 }

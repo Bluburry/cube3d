@@ -9,7 +9,7 @@ void	draw_movements(t_data *data)
 		data->minimap.img.mlx_img, 0, 0);
 }
 
-t_stk	forward_backward(t_data *data, int keycode, t_stk new_pos)
+t_stk	move_forward_backward(t_data *data, int keycode, t_stk new_pos)
 {
 	if (keycode == 119) // W
  	{
@@ -24,7 +24,7 @@ t_stk	forward_backward(t_data *data, int keycode, t_stk new_pos)
  	return (new_pos);
 }
 
-t_stk	left_right(t_data *data, int keycode, t_stk new_pos)
+t_stk	move_left_right(t_data *data, int keycode, t_stk new_pos)
 {
 	if (keycode == 100) // D
  	{
@@ -39,15 +39,15 @@ t_stk	left_right(t_data *data, int keycode, t_stk new_pos)
  	return (new_pos);
 }
 
-void	movements(int keycode, t_data *data)
+void	move(int keycode, t_data *data)
 {
 	t_stk	new_pos;
 
 	new_pos.x = 0;
 	new_pos.y = 0;
 
-	new_pos = forward_backward(data, keycode, new_pos);
-	new_pos = left_right(data, keycode, new_pos);
+	new_pos = move_forward_backward(data, keycode, new_pos);
+	new_pos = move_left_right(data, keycode, new_pos);
 	if (data->new_map.map[(int)new_pos.y][(int)new_pos.x] != '1')
 	{
  		data->player.pos.x = new_pos.x;
@@ -94,7 +94,7 @@ int	close_window(int keycode, t_data *data)
  	else if (keycode == 65361 || keycode == 65363)
  		rotate(keycode, data);
  	else
- 		movements(keycode, data);
+ 		move(keycode, data);
 	return (0);
 }
 

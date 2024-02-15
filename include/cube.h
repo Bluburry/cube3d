@@ -37,7 +37,6 @@ int		close_window(int keycode, t_data *data);
 int		on_destroy(t_data *data);
 void	movements(int keycode, t_data *data);
 
-
 // --- map ---
 
 // init.c
@@ -45,7 +44,6 @@ void	init_map(t_data *data);
 void	set_player_position(t_data *data, int x, int y, int pos);
 void	init_data(t_data *data);
 void	init_minimap(t_data *data);
-void	init_ray(t_raycast *ray);
 
 // minimap.c
 void	get_player_position(t_data *data);
