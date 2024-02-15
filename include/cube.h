@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/02/01 00:09:54 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:53:35 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // draw.c
 void	draw_rectangle(t_data *data, int x, int y, long color);
 void	draw_rectangles(t_data *data);
-void	draw_line(t_data *data, t_stk pos1, t_stk pos2, long color);
+void	draw_line(t_data *data, t_vector pos1, t_vector pos2, long color);
 void	draw_lines(t_data *data);
 void	draw_player(t_data *data);
 

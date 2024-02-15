@@ -5,3 +5,4 @@ mlx_linux/*.a
 mlx_linux/obj/
 mlx_linux/test/
 obj/
+cub3d
