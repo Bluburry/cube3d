@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cube.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 09:56:55 by jegger-s          #+#    #+#             */
-/*   Updated: 2024/02/13 20:08:00by bluburry         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cube.h"
 
 void	init(t_data *data, t_image *img, \
-		t_minimap *minimap, t_stk *stk)
+		t_minimap *minimap, t_vector *stk)
 {
 	data->pos_y = 0;
 	data->pos_x = 0;
@@ -26,7 +14,7 @@ void	init(t_data *data, t_image *img, \
 	data->img = *img;
 	data->minimap = *minimap;
 	data->stk = stk;
-	data->stk = malloc(sizeof(t_stk) * 720);
+	data->stk = malloc(sizeof(t_vector) * 720);
 }
 
 int	init2(t_data *data, char **av)
@@ -41,7 +29,7 @@ int	init2(t_data *data, char **av)
 	}
 	get_player_position(data);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 720, 420, "Cub3D");
+	data->win = mlx_new_window(data->mlx, HEIGHT, WIDTH, "Cub3D");
 	init_minimap(data);
 	draw_lines(data);
 	draw_rectangles(data);
@@ -54,7 +42,7 @@ int	main(int ac, char **av)
 	t_data		data;
 	t_image		img;
 	t_minimap	minimap;
-	t_stk		*stk;
+	t_vector	*stk;
 
 	if (ac != 2)
 	{

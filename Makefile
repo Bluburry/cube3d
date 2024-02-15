@@ -8,11 +8,12 @@ MLX_NAME		= libmlx_Linux.a libmlx.a
 SRC_DIR			= src/
 OBJ_DIR			= obj/
 RM				= rm -rf
+DEFAULT_MAP		= maps/map.cub
 NODIRS			= --no-print-directory
 MLX_FLDR		= mlx_linux
 MLX_FLAGS		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 CC_FLAGS		= -g -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
-VG				= valgrind --leak-check=full --suppressions=sup --track-origins=yes #--log-file=leaks.log
+VG				= valgrind -s --leak-check=full --track-origins=yes --log-file=leaks.log
 #provavelmente ter de alterar alguma cena para melhor incluir minilibx
 
 # DIRECTORIES
@@ -48,16 +49,22 @@ $(OBJS_FILES) :
 clean :
 	@make $(NODIRS) clean -C $(LIBFT_SRC)
 	@make $(NODIRS) clean -C $(MLX_FLDR)
+	@$(RM) leaks.log
 	@$(RM) $(OBJ_DIR)
 
-fclean :
+fclean : clean
 	@make fclean -C $(LIBFT_SRC)
-	@make clean -C $(MLX_FLDR)
 	@$(RM) $(OBJS_FILES) $(LIBFT_NAME) $(MLX_NAME)
 	@$(RM) $(OBJ_DIR)
 	@$(RM) $(NAME)
 
 re : fclean all
+
+leaks : all
+	@$(VG) ./$(NAME) $(DEFAULT_MAP)
+
+debug :
+	@gdb -tui --args $(NAME) $(DEFAULT_MAP)
 
 .SILENT:
 

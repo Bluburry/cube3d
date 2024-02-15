@@ -49,8 +49,8 @@ void	init_minimap(t_data *data)
 void	init_ray(t_raycast *ray)
 {
 	ray->camera_x = 0;
-	ray->cast_dir.x = 0;
-	ray->cast_dir.y = 0;
+	ray->cast_vector.x = 0;
+	ray->cast_vector.y = 0;
 	ray->map_x = 0;
 	ray->map_y = 0;
 	ray->step_x = 0;
@@ -65,12 +65,12 @@ void	init_data(t_data *data)
 {
 	t_image		img;
 	t_minimap	minimap;
-	t_stk		*stk;
+	t_vector		*stk;
 	t_raycast	raycast;
 	t_player	player;
 
-	raycast.cast_dir.x = 0;
-	raycast.cast_dir.y = 0;
+	raycast.cast_vector.x = 0;
+	raycast.cast_vector.y = 0;
 	raycast.sidedist.x = 0;
 	raycast.sidedist.y = 0;
 	raycast.deltadist.x = 0;
@@ -105,5 +105,5 @@ void	init_data(t_data *data)
 	data->minimap = minimap;
 	data->raycast = raycast;
 	data->stk = stk;
-	data->stk = malloc(sizeof(t_stk) * 720);
+	data->stk = malloc(sizeof(t_vector) * 720);
 }

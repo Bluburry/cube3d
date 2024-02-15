@@ -42,7 +42,7 @@ void	draw_rectangles(t_data *data)
 	}
 }
 
-void	draw_line(t_data *data, t_stk pos1, t_stk pos2, long color)
+void	draw_line(t_data *data, t_vector pos1, t_vector pos2, long color)
 {
 	double	delta_x;
 	double	delta_y;
@@ -68,8 +68,8 @@ void	draw_line(t_data *data, t_stk pos1, t_stk pos2, long color)
 
 void	draw_lines(t_data *data)
 {
-	t_stk	pos1;
-	t_stk	pos2;
+	t_vector	pos1;
+	t_vector	pos2;
 	int		i;
 
 	i = -1;
@@ -95,8 +95,8 @@ void	draw_lines(t_data *data)
 void	draw_player(t_data *data)
 {
 	int		i;
-	t_stk	pos;
-	t_stk	ray_pos;
+	t_vector	pos;
+	t_vector	ray_pos;
 
 	i = 0;
 	pos.x = (ceil(data->pos_x) * data->minimap.map_size)

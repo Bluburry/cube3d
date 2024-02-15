@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cube.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/02/01 00:09:54 by bluburry         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -19,13 +7,21 @@
 # include "libft.h"
 # include "structs.h"
 
+# define WIDTH			720
+# define HEIGHT			420
+# define MOVE_LEFT		97
+# define MOVE_RIGHT		100
+# define MOVE_UP		119
+# define MOVE_DOWN		115
+# define ROTATE_LEFT	65361
+# define ROTATE_RIGHT	65363
 
 // --- draw ---
 
 // draw.c
 void	draw_rectangle(t_data *data, int x, int y, long color);
 void	draw_rectangles(t_data *data);
-void	draw_line(t_data *data, t_stk pos1, t_stk pos2, long color);
+void	draw_line(t_data *data, t_vector pos1, t_vector pos2, long color);
 void	draw_lines(t_data *data);
 void	draw_player(t_data *data);
 
