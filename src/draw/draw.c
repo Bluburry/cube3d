@@ -106,7 +106,7 @@ void	draw_player(t_data *data)
 	// printf("pos.x: %f pos.y: %f\n", pos.x, pos.y);
 	// printf("data->dir.x: %f data->dir.y: %f\n", data->dir.x, data->dir.y);	
 	// printf("X: %f - Y: %f  - Cam: %f\n", data->raycast.cast_dir.x, data->raycast.cast_dir.y, cam_x);
-	while (i < 10)
+	while (i < WIDTH)
 	{
 		data->raycast.cast_dir.x = data->dir.x;
 		data->raycast.cast_dir.y = data->dir.y;

@@ -11,12 +11,12 @@ void	draw_movements(t_data *data)
 
 t_stk	move_forward_backward(t_data *data, int keycode, t_stk new_pos)
 {
-	if (keycode == 119) // W
+	if (keycode == W) // W
  	{
  		new_pos.x = data->player.pos.x + -1 * (data->dir.x * 0.5 / 5);
  		new_pos.y = data->player.pos.y + -1 * (data->dir.y * 0.5 / 5);
  	}
- 	else if (keycode == 115) // S
+ 	else if (keycode == S) // S
  	{
  		new_pos.x = data->player.pos.x + 1 * (data->dir.x * 0.5 / 5);
  		new_pos.y = data->player.pos.y + 1 * (data->dir.y * 0.5 / 5);
@@ -26,12 +26,12 @@ t_stk	move_forward_backward(t_data *data, int keycode, t_stk new_pos)
 
 t_stk	move_left_right(t_data *data, int keycode, t_stk new_pos)
 {
-	if (keycode == 100) // D
+	if (keycode == D) // D
  	{
  		new_pos.x = data->player.pos.x - -1 * (data->dir.y * 0.5 / 5);
  		new_pos.y = data->player.pos.y + -1 * (data->dir.x * 0.5 / 5);
  	}
- 	else if (keycode == 97) // A
+ 	else if (keycode == A) // A
  	{
  		new_pos.x = data->player.pos.x - 1 * (data->dir.y * 0.5 / 5);
  		new_pos.y = data->player.pos.y + 1 * (data->dir.x * 0.5 / 5);
@@ -60,7 +60,7 @@ void	rotate(int keycode, t_data *data)
 {
 	double	dist;
  	
- 	if (keycode == 65361) // left arrow
+ 	if (keycode == LEFT) // left arrow
  	{
 		data->dir.x = data->dir.x * cos(1 * 0.05) - data->dir.y * sin(1 * 0.05);
 		data->dir.y = data->dir.y * cos(1 * 0.05) + data->dir.x * sin(1 * 0.05);
@@ -69,7 +69,7 @@ void	rotate(int keycode, t_data *data)
 		data->dir.y /= dist;
  		draw_movements(data);
  	}
- 	else if (keycode == 65363) // right arrow
+ 	else if (keycode == RIGHT) // right arrow
  	{
 		data->dir.x = data->dir.x * cos(-1 * 0.05) - data->dir.y * sin(-1 * 0.05);
 		data->dir.y = data->dir.y * cos(-1 * 0.05) + data->dir.x * sin(-1 * 0.05);
@@ -84,14 +84,14 @@ void	rotate(int keycode, t_data *data)
 int	close_window(int keycode, t_data *data)
 {
 	printf("%d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == ESC)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 		exit(0);
  	}
- 	else if (keycode == 65361 || keycode == 65363)
+ 	else if (keycode == LEFT || keycode == RIGHT)
  		rotate(keycode, data);
  	else
  		move(keycode, data);

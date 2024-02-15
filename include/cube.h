@@ -18,6 +18,7 @@
 # include <math.h>
 # include "libft.h"
 # include "structs.h"
+# include "keys.h"
 
 
 // --- draw ---

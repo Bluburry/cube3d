@@ -30,13 +30,13 @@ int	main(int ac, char **av)
 	get_player_position(&data);
 	
 	data.mlx = mlx_init();
-    data.win = mlx_new_window(data.mlx, 720, 420, "Cub3D");
+    data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3D");
     
     init_minimap(&data);
     draw_lines(&data);
     draw_rectangles(&data);
     draw_player(&data);
-    
+
 	mlx_put_image_to_window(data.mlx, data.win,
 		data.minimap.img.mlx_img, 0, 0);
 
