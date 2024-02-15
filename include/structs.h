@@ -1,7 +1,5 @@
 #ifndef	STRUCTS_H
 # define STRUCTS_H
-#ifndef	STRUCTS_H
-# define STRUCTS_H
 
 # include "../mlx_linux/mlx_int.h"
 # include "../mlx_linux/mlx.h"
@@ -61,7 +59,7 @@ typedef struct s_raycast
 	int			step_x;
 	int			step_y;
 	int			side;
-	t_vector	cast_vector;
+	t_vector	cast_dir;
 	t_vector	sidedist;
 	t_vector	deltadist;
 }	t_raycast;
@@ -80,4 +78,4 @@ typedef struct s_data
 	t_player	player;
 }	t_data;
 
-#endif
+# endif

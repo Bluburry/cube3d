@@ -85,26 +85,19 @@ int	close_window(int keycode, t_data *data)
 {
 	printf("%d\n", keycode);
 	if (keycode == ESC)
-	{
-		mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		exit(0);
- 	}
- 	else if (keycode == LEFT || keycode == RIGHT)
- 		rotate(keycode, data);
- 	else
- 		move(keycode, data);
+		on_destroy(data);
+	else if (keycode == LEFT || keycode == RIGHT)
+		rotate(keycode, data);
+	else if (keycode == W || keycode == A || keycode == S || keycode == D)
+		move(keycode, data);
 	return (0);
 }
-
-
 
 int on_destroy(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
+	mlx_loop_end(data->mlx);
 	free(data->mlx);
 	exit(0);
-	return (0);
 }

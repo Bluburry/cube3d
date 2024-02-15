@@ -60,6 +60,9 @@ fclean : clean
 
 re : fclean all
 
+run : all
+	@./$(NAME) $(DEFAULT_MAP)
+
 leaks : all
 	@$(VG) ./$(NAME) $(DEFAULT_MAP)
 
@@ -68,4 +71,4 @@ debug :
 
 .SILENT:
 
-.PHONY : all, clean, fclean, re
+.PHONY : all, clean, fclean, re, run, leaks, debug
