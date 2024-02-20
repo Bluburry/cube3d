@@ -13,13 +13,13 @@ t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 {
 	if (keycode == W) // W
  	{
- 		new_pos.x = data->player.pos.x + -1 * (data->dir.x * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + -1 * (data->dir.y * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x + -1 * (data->player.dir.x * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + -1 * (data->player.dir.y * 0.5 / 5);
  	}
  	else if (keycode == S) // S
  	{
- 		new_pos.x = data->player.pos.x + 1 * (data->dir.x * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + 1 * (data->dir.y * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x + 1 * (data->player.dir.x * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + 1 * (data->player.dir.y * 0.5 / 5);
  	}
  	return (new_pos);
 }
@@ -28,13 +28,13 @@ t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
 {
 	if (keycode == D) // D
  	{
- 		new_pos.x = data->player.pos.x - -1 * (data->dir.y * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + -1 * (data->dir.x * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x - -1 * (data->player.dir.y * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + -1 * (data->player.dir.x * 0.5 / 5);
  	}
  	else if (keycode == A) // A
  	{
- 		new_pos.x = data->player.pos.x - 1 * (data->dir.y * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + 1 * (data->dir.x * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x - 1 * (data->player.dir.y * 0.5 / 5);
+ 		new_pos.y = data->player.pos.y + 1 * (data->player.dir.x * 0.5 / 5);
  	}
  	return (new_pos);
 }
@@ -58,26 +58,25 @@ void	move(int keycode, t_data *data)
 
 void	rotate(int keycode, t_data *data)
 {
-	double	dist;
+	// double	dist;
  	
  	if (keycode == LEFT) // left arrow
  	{
-		data->dir.x = data->dir.x * cos(1 * 0.05) - data->dir.y * sin(1 * 0.05);
-		data->dir.y = data->dir.y * cos(1 * 0.05) + data->dir.x * sin(1 * 0.05);
-		dist = hypot(data->dir.x, data->dir.y);
-		data->dir.x /= dist;
-		data->dir.y /= dist;
+		data->player.p_ang -= 0.1;
+		if (data->player.p_ang < 0)
+			data->player.p_ang += 2 * 3.1415926535;
+		data->player.dir.x = cos(data->player.p_ang) * 5;
+		data->player.dir.y = sin(data->player.p_ang) * 5;
  		draw_movements(data);
  	}
  	else if (keycode == RIGHT) // right arrow
  	{
-		data->dir.x = data->dir.x * cos(-1 * 0.05) - data->dir.y * sin(-1 * 0.05);
-		data->dir.y = data->dir.y * cos(-1 * 0.05) + data->dir.x * sin(-1 * 0.05);
-		dist = hypot(data->dir.x, data->dir.y);
-		data->dir.x /= dist;
-		data->dir.y /= dist;
+		data->player.p_ang += 0.1;
+		if (data->player.p_ang > (2 * 3.1415926535))
+			data->player.p_ang -= 2 * 3.1415926535;
+		data->player.dir.x = cos(data->player.p_ang) * 5;
+		data->player.dir.y = sin(data->player.p_ang) * 5;
  		draw_movements(data);
-		// printf("IN -- Dir_x: %f | Dir_y: %f, \n", data->dir.x, data->dir.y);
  	}
 }
 
