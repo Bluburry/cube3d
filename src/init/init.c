@@ -50,6 +50,10 @@ void	init_data(t_data *data)
 	player.pos.x = 0;
 	player.pos.y = 0;
 
+	player.p_ang = 0;
+	player.dir.x = cos(player.p_ang) * 5;
+	player.dir.y = sin(player.p_ang) * 5;
+
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = img;
@@ -70,4 +74,8 @@ void	init_minimap(t_data *data)
 			data->minimap.height);
 	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
 			data->minimap.img.mlx_img, &bpp, &sl, &end);
+	
+	draw_lines(data);
+	draw_rectangles(data);
+	draw_player(data);
 }
