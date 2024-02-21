@@ -44,8 +44,8 @@ void	init_data(t_data *data)
 
 	minimap.map_size = 16;
 
-	raycast.cast_dir.x = 0;
-	raycast.cast_dir.y = 0;
+	raycast.dir.x = 0;
+	raycast.dir.y = 0;
 	
 	player.pos.x = 0;
 	player.pos.y = 0;

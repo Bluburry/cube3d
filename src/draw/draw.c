@@ -105,13 +105,13 @@ void	draw_player(t_data *data)
 
 	// printf("pos.x: %f pos.y: %f\n", pos.x, pos.y);
 	// printf("data->dir.x: %f data->dir.y: %f\n", data->dir.x, data->dir.y);	
-	// printf("X: %f - Y: %f  - Cam: %f\n", data->raycast.cast_dir.x, data->raycast.cast_dir.y, cam_x);
+	// printf("X: %f - Y: %f  - Cam: %f\n", data->raycast.dir.x, data->raycast.dir.y, cam_x);
 	while (i < WIDTH)
 	{
-		data->raycast.cast_dir.x = data->dir.x;
-		data->raycast.cast_dir.y = data->dir.y;
-		// printf("raycast.cast_dir.x: %f raycast.cast_dir.y: %f - Cam: %f\n", data->raycast.cast_dir.x, data->raycast.cast_dir.y, cam_x);
-		draw_line(data, pos, data->raycast.cast_dir, 0x0000FF0);
+		data->raycast.dir.x = data->dir.x;
+		data->raycast.dir.y = data->dir.y;
+		// printf("raycast.dir.x: %f raycast.dir.y: %f - Cam: %f\n", data->raycast.dir.x, data->raycast.dir.y, cam_x);
+		draw_line(data, pos, data->raycast.dir, 0x0000FF0);
 		i++;
 	}
 	draw_rectangle(data, (int)data->player.pos.x, (int)data->player.pos.y, 0x00FF0000);

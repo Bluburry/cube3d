@@ -6,3 +6,7 @@ mlx_linux/obj/
 mlx_linux/test/
 obj/
 cub3d
+.vscode/
+.vscode/*
+build/
+

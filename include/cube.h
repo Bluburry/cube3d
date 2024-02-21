@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/02/15 16:05:14 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:45:40 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	draw_line(t_data *data, t_vector pos1, t_vector pos2, long color);
 void	draw_lines(t_data *data);
 void	draw_player(t_data *data);
 
+// raycast_start
+void	raycast_attempt(t_data *data);
 
 // --- hooks ---
 

@@ -25,6 +25,9 @@ typedef struct s_image
 {
 	void			*mlx_img;
 	unsigned int	*addr;
+	int				bpp;
+	int				sl;
+	int				ed;
 }	t_image;
 
 // Minimap in the game.
@@ -45,6 +48,7 @@ typedef struct s_stk
 
 typedef struct s_player
 {
+	double		angle;
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
@@ -52,16 +56,16 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
-	double		camera_x;
-	double		camera_y;
+	double		wall_dist;
 	int			map_x;
 	int			map_y;
 	int			step_x;
 	int			step_y;
-	int			side;
-	t_vector	cast_dir;
-	t_vector	sidedist;
-	t_vector	deltadist;
+	int			side_hit;
+	t_vector	camera;
+	t_vector	dir;
+	t_vector	side;
+	t_vector	delta;
 }	t_raycast;
 
 typedef struct s_data

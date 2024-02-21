@@ -10,5 +10,7 @@
 # define LEFT	65361
 # define RIGHT	65363
 # define ESC	65307
+# define PI		3.14159265359
+# define MAX	1000000000000
 
 #endif
