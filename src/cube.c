@@ -33,8 +33,8 @@ int	main(int ac, char **av)
 	//draw_rectangles(&data);
 	//draw_player(&data);
 
-	//mlx_put_image_to_window(data.mlx, data.win, 
-		//data.minimap.img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data.mlx, data.win, 
+		data.minimap.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
 	return (0);
 }

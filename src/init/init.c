@@ -20,14 +20,37 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 		data->player.pos.y = (double)x + 0.5;
 		data->player.pos.x = (double)y + 0.5;
 		if (pos == 'E')
-			data->dir.x = 1;
+		{
+			data->player.p_ang = 0;
+			data->player.dir.x = 1;
+			data->player.dir.y = 0;
+			data->player.plane.x = 0;
+			data->player.plane.y = 0.66;
+		}
 		else if (pos == 'W')
-			data->dir.x = -1;
+		{
+			data->player.p_ang = PI;
+			data->player.dir.x = -1;
+			data->player.dir.y = 0;
+			data->player.plane.x = 0;
+			data->player.plane.y = -0.66;
+		}
 		else if (pos == 'S')
-			data->dir.y = -1;
+		{
+			data->player.p_ang = PI * 3 / 2;
+			data->player.dir.x = 0.0f;
+			data->player.dir.y = 1.0f;
+			data->player.plane.x = -0.66;
+			data->player.plane.y = 0;
+		}
 		else if (pos == 'N')
-			data->dir.y = 1;
-		// printf("\nDirX: %f | DirY: %f\n", data->dir.x, data->dir.y);	
+		{
+			data->player.p_ang = PI / 2;
+			data->player.dir.x = 0.0f;
+			data->player.dir.y = -1.0f;
+			data->player.plane.x = 0.66;
+			data->player.plane.y = 0;
+		}
 		return ;
 	}
 }
@@ -49,6 +72,12 @@ void	init_data(t_data *data)
 	
 	player.pos.x = 0;
 	player.pos.y = 0;
+	player.plane.x = 0;
+	player.plane.y = 0;
+
+	player.p_ang = 0;
+	player.dir.x = 0;
+	player.dir.y = 0;
 
 	data->mlx = NULL;
 	data->win = NULL;
@@ -70,4 +99,8 @@ void	init_minimap(t_data *data)
 			data->minimap.height);
 	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
 			data->minimap.img.mlx_img, &bpp, &sl, &end);
+	
+	// draw_lines(data);
+	draw_rectangles(data);
+	draw_player(data);
 }

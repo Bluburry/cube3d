@@ -94,13 +94,12 @@ void	draw_lines(t_data *data)
 
 void	draw_player(t_data *data)
 {
-	t_vector	pos;
-	int			i;
+	t_vector	mini_pos;
+	t_vector	dir;
 
-	i = 0;
-	pos.x = (ceil(data->player.pos.x) * data->minimap.map_size)
+	mini_pos.x = (ceil(data->player.pos.x) * data->minimap.map_size)
 		- (data->minimap.map_size / 2);
-	pos.y = (ceil(data->player.pos.y) * data->minimap.map_size)
+	mini_pos.y = (ceil(data->player.pos.y) * data->minimap.map_size)
 		- (data->minimap.map_size / 2);
 
 	// printf("pos.x: %f pos.y: %f\n", pos.x, pos.y);
@@ -114,5 +113,15 @@ void	draw_player(t_data *data)
 		draw_line(data, pos, data->raycast.dir, 0x0000FF0);
 		i++;
 	}
+	// dir.x = mini_pos.x + data->player.dir.x * 25;
+	// dir.y = mini_pos.y + data->player.dir.y * 25;
+	// draw_line(data, mini_pos, dir, 0x0000FF0);
 	draw_rectangle(data, (int)data->player.pos.x, (int)data->player.pos.y, 0x00FF0000);
 }
+
+	// printf("\n-Minimap-\nPlayer Pos x: %f Player Pos y: %f\n", data->player.pos.x, data->player.pos.y);
+	// printf("Player Dir x: %f Player Dir y: %f\n\n", data->player.dir.x, data->player.dir.y);	
+	// printf("Pos x: %f Pos y: %f\n", pos.x, pos.y);
+	// printf("Dir x: %f Dir y: %f\n", dir.x, dir.y);
+	// printf("Angulo: %f\n\n", data->player.p_ang);
+		

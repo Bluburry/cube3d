@@ -52,6 +52,7 @@ typedef struct s_player
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
+	double		p_ang;
 }	t_player;
 
 typedef struct s_raycast
