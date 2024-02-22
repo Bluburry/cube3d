@@ -9,4 +9,4 @@ cub3d
 .vscode/
 .vscode/*
 build/
-
+*.log

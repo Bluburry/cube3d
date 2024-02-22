@@ -61,7 +61,6 @@ typedef struct s_raycast
 	int			map_y;
 	int			step_x;
 	int			step_y;
-	int			side_hit;
 	t_vector	camera;
 	t_vector	dir;
 	t_vector	side;
