@@ -2,7 +2,7 @@
 
 void	draw_movements(t_data *data)
 {
-	draw_lines(data);
+	// draw_lines(data);
 	draw_rectangles(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->win,
@@ -13,32 +13,40 @@ t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 {
 	if (keycode == W) // W
  	{
- 		new_pos.x = data->player.pos.x +  (data->player.dir.x * 0.5 / 5);
- 		new_pos.y = data->player.pos.y +  (data->player.dir.y * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x + (data->player.dir.x);
+ 		new_pos.y = data->player.pos.y + (data->player.dir.y);
  	}
  	else if (keycode == S) // S
  	{
- 		new_pos.x = data->player.pos.x - (data->player.dir.x * 0.5 / 5);
- 		new_pos.y = data->player.pos.y - (data->player.dir.y * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x - (data->player.dir.x);
+ 		new_pos.y = data->player.pos.y - (data->player.dir.y);
  	}
  	return (new_pos);
 }
 
 t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
 {
-	auto double	ang = data->player.p_ang;
+	// auto double	ang = data->player.p_ang;
 
 	if (keycode == D) // D
  	{
- 		ang -= PI / 2;
- 		new_pos.x = data->player.pos.x + (cos(ang) * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + (sin(ang) * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x - data->player.dir.y;
+		new_pos.y = data->player.pos.y + data->player.dir.x;
+ 		// ang -= PI / 2;
+ 		// new_pos.x = data->player.pos.x + (cos(ang));
+ 		// new_pos.y = data->player.pos.y + (sin(ang));
+ 		// printf("Cos Ang: %f | Sin Ang: %f\n", cos(ang), sin(ang));
+ 		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n", ang, new_pos.x, new_pos.y);
  	}
  	else if (keycode == A) // A
  	{
- 		ang += PI / 2;
- 		new_pos.x = data->player.pos.x + (cos(ang) * 0.5 / 5);
- 		new_pos.y = data->player.pos.y + (sin(ang) * 0.5 / 5);
+ 		new_pos.x = data->player.pos.x + data->player.dir.y;
+		new_pos.y = data->player.pos.y - data->player.dir.x;
+ 		// ang += PI / 2;
+ 		// new_pos.x = data->player.pos.x + (cos(ang));
+ 		// new_pos.y = data->player.pos.y + (sin(ang));
+ 		// printf("Cos Ang: %f | Sin Ang: %f\n\n", cos(ang), sin(ang));
+ 		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n\n", ang, new_pos.x, new_pos.y);
  	}
  	return (new_pos);
 }

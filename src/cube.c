@@ -22,12 +22,9 @@ int	main(int ac, char **av)
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 
 	init_minimap(&data);
-	draw_lines(&data);
-	draw_rectangles(&data);
-	draw_player(&data);
 
-	//mlx_put_image_to_window(data.mlx, data.win, 
-		//data.minimap.img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data.mlx, data.win, 
+		data.minimap.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
 	return (0);
 }

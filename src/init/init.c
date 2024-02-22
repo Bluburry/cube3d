@@ -13,25 +13,6 @@ void	init_map(t_data *data)
 	data->new_map.columns = 0;
 }
 
-// void	set_player_position(t_data *data, int x, int y, int pos)
-// {
-// 	if (data->player.pos.y == 0 && data->player.pos.x == 0)
-// 	{
-// 		data->player.pos.y = (double)x + 0.5;
-// 		data->player.pos.x = (double)y + 0.5;
-// 		if (pos == 'E')
-// 			data->player.dir.x = 5;
-// 		else if (pos == 'W')
-// 			data->player.dir.x = -5;
-// 		else if (pos == 'S')
-// 			data->player.dir.y = -5;
-// 		else if (pos == 'N')
-// 			data->player.dir.y = 5;
-// 		// printf("\nDirX: %f | DirY: %f\n", data->dir.x, data->dir.y);	
-// 		return ;
-// 	}
-// }
-
 void	set_player_position(t_data *data, int x, int y, int pos)
 {
 	if (data->player.pos.y == 0 && data->player.pos.x == 0)
@@ -70,7 +51,6 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 			data->player.plane.x = 0.66;
 			data->player.plane.y = 0;
 		}
-		// printf("\nDirX: %f | DirY: %f\n", data->dir.x, data->dir.y);	
 		return ;
 	}
 }
@@ -120,7 +100,7 @@ void	init_minimap(t_data *data)
 	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
 			data->minimap.img.mlx_img, &bpp, &sl, &end);
 	
-	draw_lines(data);
+	// draw_lines(data);
 	draw_rectangles(data);
 	draw_player(data);
 }
