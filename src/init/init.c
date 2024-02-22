@@ -101,6 +101,6 @@ void	init_minimap(t_data *data)
 			data->minimap.img.mlx_img, &bpp, &sl, &end);
 	
 	// draw_lines(data);
-	draw_rectangles(data);
-	draw_player(data);
+	// draw_rectangles(data);
+	// draw_player(data);
 }

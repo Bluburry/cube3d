@@ -64,5 +64,8 @@ int	check_closed(t_data *data, int i, int j);
 int	check_surrounded(char *map, int rows, int i, int j);
 int	validate_map(t_data *data);
 
+// logic.
 
+unsigned long createRGB(char *sub_str);
+// unsigned long createRGB(int r, int g, int b);
 #endif

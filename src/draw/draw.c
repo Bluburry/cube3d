@@ -94,25 +94,25 @@ void	draw_lines(t_data *data)
 
 void	draw_player(t_data *data)
 {
-	t_vector	mini_pos;
-	t_vector	dir;
+	// t_vector	mini_pos;
+	// t_vector	dir;
 
-	mini_pos.x = (ceil(data->player.pos.x) * data->minimap.map_size)
-		- (data->minimap.map_size / 2);
-	mini_pos.y = (ceil(data->player.pos.y) * data->minimap.map_size)
-		- (data->minimap.map_size / 2);
+	// mini_pos.x = (ceil(data->player.pos.x) * data->minimap.map_size)
+	// 	- (data->minimap.map_size / 2);
+	// mini_pos.y = (ceil(data->player.pos.y) * data->minimap.map_size)
+	// 	- (data->minimap.map_size / 2);
 
 	// printf("pos.x: %f pos.y: %f\n", pos.x, pos.y);
 	// printf("data->dir.x: %f data->dir.y: %f\n", data->dir.x, data->dir.y);	
 	// printf("X: %f - Y: %f  - Cam: %f\n", data->raycast.dir.x, data->raycast.dir.y, cam_x);
-	while (i < WIDTH)
-	{
-		data->raycast.dir.x = data->dir.x;
-		data->raycast.dir.y = data->dir.y;
-		// printf("raycast.dir.x: %f raycast.dir.y: %f - Cam: %f\n", data->raycast.dir.x, data->raycast.dir.y, cam_x);
-		draw_line(data, pos, data->raycast.dir, 0x0000FF0);
-		i++;
-	}
+	// while (i < WIDTH)
+	// {
+	// 	data->raycast.dir.x = data->dir.x;
+	// 	data->raycast.dir.y = data->dir.y;
+	// 	// printf("raycast.dir.x: %f raycast.dir.y: %f - Cam: %f\n", data->raycast.dir.x, data->raycast.dir.y, cam_x);
+	// 	draw_line(data, pos, data->raycast.dir, 0x0000FF0);
+	// 	i++;
+	// }
 	// dir.x = mini_pos.x + data->player.dir.x * 25;
 	// dir.y = mini_pos.y + data->player.dir.y * 25;
 	// draw_line(data, mini_pos, dir, 0x0000FF0);

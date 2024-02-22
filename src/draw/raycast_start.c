@@ -32,6 +32,7 @@ void	init_r(t_data *data, t_raycast *r)
 		r->step_y = 1;
 		r->side.y = (r->map_y + 1.0 - data->player.pos.y) * r->delta.y;
 	}
+	// printf("data->player.pos.x: %f | data->player.pos.y: %f\n\n", data->player.pos.x, data->player.pos.y);
 }
 
 void	dda(t_data *data, t_raycast *r)
@@ -59,6 +60,7 @@ void	dda(t_data *data, t_raycast *r)
 		r->wall_dist = (r->side.x - r->delta.x);
 	else
 		r->wall_dist = (r->side.y - r->delta.y);
+	// printf("r->wall_dist: %f\n", r->wall_dist);
 }
 
 #define WALL_CLR 0x0000FF00
@@ -66,7 +68,7 @@ void	dda(t_data *data, t_raycast *r)
 
 void	draw_vert(t_data *data, int x, double dist)
 {
-	//unsigned int	*pxl;
+	// unsigned int	*pxl;
 
 	auto int line_height = (int)(HEIGHT / dist);
 	auto int draw_start = -line_height / 2 + HEIGHT / 2;
@@ -79,9 +81,9 @@ void	draw_vert(t_data *data, int x, double dist)
 	auto int y = -1;
 	while (++y < draw_start)
 	{
-		mlx_pixel_put(data->mlx, data->win, x, y, REST_CLR);
-		//pxl = data->img.addr + (x * data->img.sl + x * (data->img.bpp / 8));
-		//*pxl = (unsigned int) REST_CLR;
+		mlx_pixel_put(data->mlx, data->win, x, y, data->new_map.sky);
+		// pxl = data->img.addr + (y * data->img.sl + x * (data->img.bpp / 8));
+		// *pxl = 0x00000000;
 	}
 	while (y++ < draw_end)
 	{
@@ -91,7 +93,7 @@ void	draw_vert(t_data *data, int x, double dist)
 	}
 	while (y++ < HEIGHT)
 	{
-		mlx_pixel_put(data->mlx, data->win, x, y, REST_CLR);
+		mlx_pixel_put(data->mlx, data->win, x, y, data->new_map.floor);
 		//pxl = data->img.addr + (x * data->img.sl + y * (data->img.bpp / 8));
 		//*pxl = (unsigned int) REST_CLR;
 	}
@@ -122,7 +124,7 @@ void	raycast_attempt(t_data *data)
 		dda(data, &r);
 		//printf("r.wall_dist: %f\n", r.wall_dist);
 		draw_vert(data, x, r.wall_dist);
-		printf("\n\n\n");
+		// printf("\n\n\n");
 	}
 	//mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 }
