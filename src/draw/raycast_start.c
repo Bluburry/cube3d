@@ -62,8 +62,10 @@ void	dda(t_data *data, t_raycast *r)
 	{
 		r->wall_dist = (r->side.x - r->delta.x);
 		ang += atan(r->camera.x / r->wall_dist);
-		if (ang > PI * 2)
+		if (ang >= PI * 2)
 			ang -= PI * 2;
+		else if (ang < 0)
+			ang += PI * 2;
 		if (ang < PI / 2 || ang > PI * 3 / 2)
 			r->side_hit = 2;
 	}
@@ -73,6 +75,8 @@ void	dda(t_data *data, t_raycast *r)
 		ang += atan(r->camera.x / r->wall_dist);
 		if (ang > PI * 2)
 			ang -= PI * 2;
+		else if (ang < 0)
+			ang += PI * 2;
 		if (ang > PI)
 			r->side_hit = 3;
 	}
@@ -97,14 +101,16 @@ void	dda(t_data *data, t_raycast *r)
 	// printf("ang: %f\n", ang);
 	// printf("r->wall_dist: %f\n", r->wall_dist);
 }
+
 #define WALL_CLR 0x0000FF00
+#define REST_CLR 0x00000000
 
 void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 {
 	if (r->side_hit == 0 || r->side_hit == 2)
-		r->wall_x = data->player.pos.y + r->wall_dist * data->player.plane.y;
+		r->wall_x = data->player.pos.y + r->wall_dist * data->player.dir.y;
 	else
-		r->wall_x = data->player.pos.x + r->wall_dist * data->player.plane.x;
+		r->wall_x = data->player.pos.x + r->wall_dist * data->player.dir.x;
 	r->wall_x -= floor(r->wall_x);
 	r->tex_x = (int)(r->wall_x * (double) IMG_WIDTH);
 	if (((r->side_hit == 0 || r->side_hit == 2) && r->dir.x > 0) || \
@@ -112,12 +118,11 @@ void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 		r->tex_x = IMG_WIDTH - r->tex_x - 1;
 	r->tex_step = 1.0 * IMG_HEIGHT / r->line_height;
 	r->tex_pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->tex_step;
-	auto unsigned int clr;
+	auto unsigned int clr = WALL_CLR;
 	while (y++ < r->draw_end)
 	{
 		r->tex_y = (int) r->tex_pos & (IMG_HEIGHT - 1);
 		r->tex_pos += r->tex_step;
-		clr = WALL_CLR;
 		if (r->side_hit == 0)
 			clr = data->new_map.we.addr[r->tex_y * IMG_WIDTH + r->tex_x];
 		else if (r->side_hit == 1)
@@ -130,8 +135,6 @@ void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 			data->img.addr[y * WIDTH + x] = clr;
 	}
 }
-
-#define REST_CLR 0x00000000
 
 void	draw_vert(t_data *data, t_raycast *r, int x)
 {

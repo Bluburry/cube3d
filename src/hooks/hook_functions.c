@@ -79,7 +79,7 @@ void	rotate(int keycode, t_data *data)
 	data->player.p_ang += rot;
 	if (data->player.p_ang >= 2 * PI)
 		data->player.p_ang -= 2 * PI;
-	if (data->player.p_ang < 0)
+	else if (data->player.p_ang < 0)
 		data->player.p_ang += 2 * PI;
  	data->player.dir.x = data->player.dir.x * cos(rot) - data->player.dir.y * sin(rot);
  	data->player.dir.y = olddir_x * sin(rot) + data->player.dir.y * cos(rot);
