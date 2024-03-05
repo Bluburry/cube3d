@@ -26,25 +26,25 @@ t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 
 t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
 {
-	// auto double	ang = data->player.p_ang;
+	auto double	ang = data->player.p_ang;
 
 	if (keycode == D) // D
  	{
- 		new_pos.x = data->player.pos.x - data->player.dir.y * 0.2;
-		new_pos.y = data->player.pos.y + data->player.dir.x * 0.2;
- 		// ang -= PI / 2;
- 		// new_pos.x = data->player.pos.x + (cos(ang));
- 		// new_pos.y = data->player.pos.y + (sin(ang));
+ 		//new_pos.x = data->player.pos.x - data->player.dir.y * 0.2;
+		//new_pos.y = data->player.pos.y + data->player.dir.x * 0.2;
+ 		ang -= PI / 2;
+ 		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
+ 		new_pos.y = data->player.pos.y + (sin(ang)) * 0.2;
  		// printf("Cos Ang: %f | Sin Ang: %f\n", cos(ang), sin(ang));
  		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n", ang, new_pos.x, new_pos.y);
  	}
  	else if (keycode == A) // A
  	{
- 		new_pos.x = data->player.pos.x + data->player.dir.y * 0.2;
-		new_pos.y = data->player.pos.y - data->player.dir.x * 0.2;
- 		// ang += PI / 2;
- 		// new_pos.x = data->player.pos.x + (cos(ang));
- 		// new_pos.y = data->player.pos.y + (sin(ang));
+ 		//new_pos.x = data->player.pos.x + data->player.dir.y * 0.2;
+		//new_pos.y = data->player.pos.y - data->player.dir.x * 0.2;
+ 		ang += PI / 2;
+ 		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
+ 		new_pos.y = data->player.pos.y + (sin(ang)) * 0.2;
  		// printf("Cos Ang: %f | Sin Ang: %f\n\n", cos(ang), sin(ang));
  		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n\n", ang, new_pos.x, new_pos.y);
  	}
@@ -72,11 +72,15 @@ void	move(int keycode, t_data *data)
 
 void	rotate(int keycode, t_data *data)
 {
-	auto double olddir_x = data->player.dir.x, rot = 0.3, oldplane_x = data->player.plane.x;
- 	
+	auto double olddir_x = data->player.dir.x, rot = 0.1, oldplane_x = data->player.plane.x;
+
  	if (keycode == LEFT)
  		rot *= -1;	
-	data->player.p_ang += rot; 	
+	data->player.p_ang += rot;
+	if (data->player.p_ang >= 2 * PI)
+		data->player.p_ang -= 2 * PI;
+	if (data->player.p_ang < 0)
+		data->player.p_ang += 2 * PI;
  	data->player.dir.x = data->player.dir.x * cos(rot) - data->player.dir.y * sin(rot);
  	data->player.dir.y = olddir_x * sin(rot) + data->player.dir.y * cos(rot);
  	data->player.plane.x = data->player.plane.x * cos(rot) - data->player.plane.y * sin(rot); 

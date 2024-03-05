@@ -37,65 +37,121 @@ void	init_r(t_data *data, t_raycast *r)
 
 void	dda(t_data *data, t_raycast *r)
 {
-	auto int side_hit = 0;
+	auto double ang = data->player.p_ang;
+	r->side_hit = 0;
 	while (1)
 	{
 		if (r->side.x < r->side.y)
 		{
 			r->side.x += r->delta.x;
 			r->map_x += r->step_x;
-			side_hit = 0;
+			r->side_hit = 0;
 		}
 		else
 		{
 			r->side.y += r->delta.y;
 			r->map_y += r->step_y;
-			side_hit = 1;
+			r->side_hit = 1;
 		}
 		if (data->new_map.map[r->map_y][r->map_x] == '1')
 			break ;
 	}
-	//printf("side_hit: %d, ray hit coordinates: %d, %d\n", side_hit, r->map_y, r->map_x);
-	if (side_hit == 0)
+	//printf("side_hit: %d, ray hit coordinates: %d, %d\n", r->side_hit, r->map_y, r->map_x);
+	//printf("x: %f | before ang: %f | after ", r->camera.x, ang);
+	if (r->side_hit == 0)
+	{
 		r->wall_dist = (r->side.x - r->delta.x);
+		ang += atan(r->camera.x / r->wall_dist);
+		if (ang > PI * 2)
+			ang -= PI * 2;
+		if (ang < PI / 2 || ang > PI * 3 / 2)
+			r->side_hit = 2;
+	}
 	else
+	{
 		r->wall_dist = (r->side.y - r->delta.y);
+		ang += atan(r->camera.x / r->wall_dist);
+		if (ang > PI * 2)
+			ang -= PI * 2;
+		if (ang > PI)
+			r->side_hit = 3;
+	}
+	/* switch(r->side_hit)
+	{
+		case 0:
+			printf("ray hit west wall\n");
+			break;
+		case 1:
+			printf("ray hit north wall\n");
+			break;
+		case 2:
+			printf("ray hit east wall\n");
+			break;
+		case 3:
+			printf("ray hit south wall\n");
+			break;
+		default:
+			printf("wtf\n");
+			break;
+	} */
+	// printf("ang: %f\n", ang);
 	// printf("r->wall_dist: %f\n", r->wall_dist);
 }
-
 #define WALL_CLR 0x0000FF00
+
+void	draw_wall(t_data *data, t_raycast *r, int x, int y)
+{
+	if (r->side_hit == 0 || r->side_hit == 2)
+		r->wall_x = data->player.pos.y + r->wall_dist * data->player.plane.y;
+	else
+		r->wall_x = data->player.pos.x + r->wall_dist * data->player.plane.x;
+	r->wall_x -= floor(r->wall_x);
+	r->tex_x = (int)(r->wall_x * (double) IMG_WIDTH);
+	if (((r->side_hit == 0 || r->side_hit == 2) && r->dir.x > 0) || \
+		((r->side_hit == 1 || r->side_hit == 3) && r->dir.x < 0))
+		r->tex_x = IMG_WIDTH - r->tex_x - 1;
+	r->tex_step = 1.0 * IMG_HEIGHT / r->line_height;
+	r->tex_pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->tex_step;
+	auto unsigned int clr;
+	while (y++ < r->draw_end)
+	{
+		r->tex_y = (int) r->tex_pos & (IMG_HEIGHT - 1);
+		r->tex_pos += r->tex_step;
+		clr = WALL_CLR;
+		if (r->side_hit == 0)
+			clr = data->new_map.we.addr[r->tex_y * IMG_WIDTH + r->tex_x];
+		else if (r->side_hit == 1)
+			clr = data->new_map.no.addr[r->tex_y * IMG_WIDTH + r->tex_x];
+		else if (r->side_hit == 2)
+			clr = data->new_map.ea.addr[r->tex_y * IMG_WIDTH + r->tex_x];
+		else if (r->side_hit == 3)
+			clr = data->new_map.so.addr[r->tex_y * IMG_WIDTH + r->tex_x];
+		if (clr > 0)
+			data->img.addr[y * WIDTH + x] = clr;
+	}
+}
+
 #define REST_CLR 0x00000000
 
-void	draw_vert(t_data *data, int x, double dist)
+void	draw_vert(t_data *data, t_raycast *r, int x)
 {
-	// unsigned int	*pxl;
-
-	auto int line_height = (int)(HEIGHT / dist);
-	auto int draw_start = -line_height / 2 + HEIGHT / 2;
-	auto int draw_end = line_height / 2 + HEIGHT / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	if (draw_end >= HEIGHT)
-		draw_end = HEIGHT - 1;
-	//printf("dist: %f\nline_height: %d\ndraw start: %d\ndraw end: %d\n", dist, line_height, draw_start, draw_end);
+	r->line_height = (int)(HEIGHT / r->wall_dist);
+	r->draw_start = -r->line_height / 2 + HEIGHT / 2;
+	r->draw_end = r->line_height / 2 + HEIGHT / 2;
+	if (r->draw_start < 0)
+		r->draw_start = 0;
+	if (r->draw_end >= HEIGHT)
+		r->draw_end = HEIGHT - 1;
 	auto int y = -1;
-	while (++y < draw_start)
+	while (++y < r->draw_start)
 	{
-		mlx_pixel_put(data->mlx, data->win, x, y, data->new_map.sky);
-		// pxl = data->img.addr + (y * data->img.sl + x * (data->img.bpp / 8));
-		// *pxl = 0x00000000;
+		data->img.addr[y * WIDTH + x] = data->new_map.sky;
 	}
-	while (y++ < draw_end)
-	{
-		mlx_pixel_put(data->mlx, data->win, x, y, WALL_CLR);
-		//pxl = data->img.addr + (x * data->img.sl + y * (data->img.bpp / 8));
-		//*pxl = (unsigned int) WALL_CLR;
-	}
+	draw_wall(data, r, x, y);
+	y = r->draw_end;
 	while (y++ < HEIGHT)
 	{
-		mlx_pixel_put(data->mlx, data->win, x, y, data->new_map.floor);
-		//pxl = data->img.addr + (x * data->img.sl + y * (data->img.bpp / 8));
-		//*pxl = (unsigned int) REST_CLR;
+		data->img.addr[y * WIDTH + x] = data->new_map.floor;
 	}
 }
 
@@ -108,8 +164,17 @@ void	raycast_attempt(t_data *data)
 		data->player.dir.x, data->player.dir.y, \
 		data->player.plane.x, data->player.plane.y); */
 	data->img.mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->img.addr = (unsigned int *)mlx_get_data_addr(data->img.mlx_img, \
-		&data->img.bpp, &data->img.sl, &data->img.ed);
+	data->img.addr = (unsigned int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.sl, &data->img.ed);
+	data->new_map.no.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/bricks.xpm", &data->new_map.no.width, &data->new_map.no.height);
+	data->new_map.no.addr = (unsigned int *) mlx_get_data_addr(data->new_map.no.img, &data->new_map.no.bpp, &data->new_map.no.sl, &data->new_map.no.ed);
+	data->new_map.so.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/dirt.xpm", &data->new_map.so.width, &data->new_map.so.height);
+	data->new_map.so.addr = (unsigned int *) mlx_get_data_addr(data->new_map.so.img, &data->new_map.so.bpp, &data->new_map.so.sl, &data->new_map.so.ed);
+	data->new_map.we.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/coal.xpm", &data->new_map.we.width, &data->new_map.we.height);
+	data->new_map.we.addr = (unsigned int *) mlx_get_data_addr(data->new_map.we.img, &data->new_map.we.bpp, &data->new_map.we.sl, &data->new_map.we.ed);
+	data->new_map.ea.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/mud.xpm", &data->new_map.ea.width, &data->new_map.ea.height);
+	data->new_map.ea.addr = (unsigned int *) mlx_get_data_addr(data->new_map.ea.img, &data->new_map.ea.bpp, &data->new_map.ea.sl, &data->new_map.ea.ed);
+	/* printf("\n\n\n\t--- new line ---\n");
+	printf("player data:\ndir, x: %f | y: %f\np_ang: %f\n", data->player.pos.x, data->player.pos.y, data->player.p_ang); */
 	auto int x = -1;
 	while (++x < WIDTH)
 	{
@@ -123,8 +188,8 @@ void	raycast_attempt(t_data *data)
 		printf("r.dir.x: %f, r.dir.y: %f\nr.side.x: %f, r.side.y: %f\nr.delta.x: %f, r.delta.y:%f\n", r.dir.x, r.dir.y, r.side.x, r.side.y, r.delta.x, r.delta.y); */
 		dda(data, &r);
 		//printf("r.wall_dist: %f\n", r.wall_dist);
-		draw_vert(data, x, r.wall_dist);
+		draw_vert(data, &r, x);
 		// printf("\n\n\n");
 	}
-	//mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 }

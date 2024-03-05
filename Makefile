@@ -50,6 +50,7 @@ clean :
 	@make $(NODIRS) clean -C $(LIBFT_SRC)
 	@make $(NODIRS) clean -C $(MLX_FLDR)
 	@$(RM) leaks.log
+	@$(RM) test.log
 	@$(RM) $(OBJ_DIR)
 
 fclean : clean
