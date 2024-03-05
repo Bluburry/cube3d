@@ -52,7 +52,7 @@ void	init_minimap(t_data *data);
 void	get_player_position(t_data *data);
 
 // read_file.c
-void	read_file(char *file, t_data *data);
+int	read_file(char *file, t_data *data);
 
 // save_map.c
 int		save_texture_path(char *path, t_data *data);
@@ -65,7 +65,5 @@ int	check_surrounded(char *map, int rows, int i, int j);
 int	validate_map(t_data *data);
 
 // logic.
-
 unsigned long createRGB(char *sub_str);
-// unsigned long createRGB(int r, int g, int b);
 #endif

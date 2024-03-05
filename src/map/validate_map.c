@@ -2,13 +2,9 @@
 
 int	check_matrix(t_data *data, int i, int j)
 {
-	int	y;
-	int	x;
-	int	n;
-	int	m;
+	auto int	m = 0, y, x, n;
 
 	y = j;
-	m = 0;
 	while (m < 3)
 	{	
 		n = 0;
@@ -77,20 +73,29 @@ int	check_surrounded(char *map, int rows, int i, int j)
 
 int	validate_map(t_data *data)
 {
-	int	i;
-	int	j;
+	auto int	i = 0, j;
 
-	i = 0;
 	while (data->new_map.map[i])
 	{
 		j = 0;
 		while (data->new_map.map[i][j])
 		{
-			if (check_surrounded(data->new_map.map[i], data->new_map.rows - 1, i, j))
+			if (!ft_strchr("NSWE10 ", data->new_map.map[i][j]))
+			{
+				printf("OK1 - |%c|\n", data->new_map.map[i][j]);
 				return 1;
+			}
+			if (check_surrounded(data->new_map.map[i], data->new_map.rows - 1, i, j))
+			{
+				printf("OK2\n");
+				return 1;
+			}
 			if (i > 0 && i < data->new_map.rows - 1)
 				if (check_closed(data, i, j))
+				{
+					printf("OK3\n");
 					return 1;
+				}
 			j++;
 		}
 		i++;
