@@ -37,7 +37,7 @@ void	init_r(t_data *data, t_raycast *r)
 
 void	dda(t_data *data, t_raycast *r)
 {
-	auto double ang = data->player.p_ang;
+	auto double ang = data->player.p_ang - PI / 2;
 	r->side_hit = 0;
 	while (1)
 	{
@@ -57,23 +57,33 @@ void	dda(t_data *data, t_raycast *r)
 			break ;
 	}
 	//printf("side_hit: %d, ray hit coordinates: %d, %d\n", r->side_hit, r->map_y, r->map_x);
-	//printf("x: %f | before ang: %f | after ", r->camera.x, ang);
+	printf("player ang: %f | x: %f | before ang: %f | after ", data->player.p_ang, r->camera.x, ang);
 	if (r->side_hit == 0)
 	{
 		r->wall_dist = (r->side.x - r->delta.x);
-		ang += atan(r->camera.x / r->wall_dist);
+		// ang = atan(r->camera.x / r->wall_dist);
+		// ang = atan(r->wall_dist / r->camera.x);
+		if (r->camera.x < 0)
+			ang -= atan(r->wall_dist / r->camera.x);
+		else
+			ang += PI - atan(r->wall_dist / r->camera.x);
 		if (ang >= PI * 2)
 			ang -= PI * 2;
 		else if (ang < 0)
 			ang += PI * 2;
-		if (ang < PI / 2 || ang > PI * 3 / 2)
+		if (ang > PI / 2 && ang < PI * 3 / 2)
 			r->side_hit = 2;
 	}
 	else
 	{
 		r->wall_dist = (r->side.y - r->delta.y);
-		ang += atan(r->camera.x / r->wall_dist);
-		if (ang > PI * 2)
+		// ang = atan(r->camera.x / r->wall_dist);
+		// ang = atan(r->wall_dist / r->camera.x);
+		if (r->camera.x < 0)
+			ang -= atan(r->wall_dist / r->camera.x);
+		else
+			ang += PI - atan(r->wall_dist / r->camera.x);
+		if (ang >= PI * 2)
 			ang -= PI * 2;
 		else if (ang < 0)
 			ang += PI * 2;
@@ -98,23 +108,32 @@ void	dda(t_data *data, t_raycast *r)
 			printf("wtf\n");
 			break;
 	} */
-	// printf("ang: %f\n", ang);
+	printf("ang: %f | side registered: %d\n", ang, r->side_hit);
 	// printf("r->wall_dist: %f\n", r->wall_dist);
 }
 
-#define WALL_CLR 0x0000FF00
-#define REST_CLR 0x00000000
-
 void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 {
-	if (r->side_hit == 0 || r->side_hit == 2)
-		r->wall_x = data->player.pos.y + r->wall_dist * data->player.dir.y;
+	if (r->side_hit == 1 || r->side_hit == 3)
+	{
+		r->wall_x = data->player.pos.x; // + r->wall_dist * data->player.dir.x;
+		if (r->camera.x < 0)
+			r->wall_x -= r->dir.x * r->wall_dist * atan(r->wall_dist / r->camera.x);
+		else
+			r->wall_x += r->dir.x * r->wall_dist * (PI - atan(r->wall_dist / r->camera.x));
+	}
 	else
-		r->wall_x = data->player.pos.x + r->wall_dist * data->player.dir.x;
+	{
+		r->wall_x = data->player.pos.y; // + r->wall_dist * data->player.dir.y;
+		if (r->camera.x < 0)
+			r->wall_x -= r->dir.y * r->wall_dist * atan(r->wall_dist / r->camera.x);
+		else
+			r->wall_x += r->dir.y * r->wall_dist * (PI - atan(r->wall_dist / r->camera.x));
+	}
 	r->wall_x -= floor(r->wall_x);
 	r->tex_x = (int)(r->wall_x * (double) IMG_WIDTH);
-	if (((r->side_hit == 0 || r->side_hit == 2) && r->dir.x > 0) || \
-		((r->side_hit == 1 || r->side_hit == 3) && r->dir.x < 0))
+	if (((r->side_hit == 0 || r->side_hit == 2) && r->dir.x < 0) || \
+		((r->side_hit == 1 || r->side_hit == 3) && r->dir.x > 0))
 		r->tex_x = IMG_WIDTH - r->tex_x - 1;
 	r->tex_step = 1.0 * IMG_HEIGHT / r->line_height;
 	r->tex_pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->tex_step;
@@ -129,7 +148,7 @@ void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 			clr = data->new_map.no.addr[r->tex_y * IMG_WIDTH + r->tex_x];
 		else if (r->side_hit == 2)
 			clr = data->new_map.ea.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else if (r->side_hit == 3)
+		else
 			clr = data->new_map.so.addr[r->tex_y * IMG_WIDTH + r->tex_x];
 		if (clr > 0)
 			data->img.addr[y * WIDTH + x] = clr;
@@ -150,6 +169,17 @@ void	draw_vert(t_data *data, t_raycast *r, int x)
 	{
 		data->img.addr[y * WIDTH + x] = data->new_map.sky;
 	}
+	/* while (y++ < r->draw_end)
+	{
+		if (r->side_hit == 0)
+		data->img.addr[y * WIDTH + x] = 0x0000FF00;
+		else if (r->side_hit == 1)
+		data->img.addr[y * WIDTH + x] = 0x000000FF;
+		else if (r->side_hit == 2)
+		data->img.addr[y * WIDTH + x] = 0x00FF0000;
+		else if (r->side_hit == 3)
+		data->img.addr[y * WIDTH + x] = 0x00FFFF00;
+	} */
 	draw_wall(data, r, x, y);
 	y = r->draw_end;
 	while (y++ < HEIGHT)
@@ -176,10 +206,10 @@ void	raycast_attempt(t_data *data)
 	data->new_map.we.addr = (unsigned int *) mlx_get_data_addr(data->new_map.we.img, &data->new_map.we.bpp, &data->new_map.we.sl, &data->new_map.we.ed);
 	data->new_map.ea.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/mud.xpm", &data->new_map.ea.width, &data->new_map.ea.height);
 	data->new_map.ea.addr = (unsigned int *) mlx_get_data_addr(data->new_map.ea.img, &data->new_map.ea.bpp, &data->new_map.ea.sl, &data->new_map.ea.ed);
-	/* printf("\n\n\n\t--- new line ---\n");
-	printf("player data:\ndir, x: %f | y: %f\np_ang: %f\n", data->player.pos.x, data->player.pos.y, data->player.p_ang); */
+	printf("\n\n\n\t--- new line ---\n");
+	printf("player data:\ndir, x: %f | y: %f\np_ang: %f\n", data->player.pos.x, data->player.pos.y, data->player.p_ang);
 	auto int x = -1;
-	while (++x < WIDTH)
+	while (++x <= WIDTH)
 	{
 		r.camera.x = (2 * x) / (double) WIDTH - 1;
 		r.side.x = 0;

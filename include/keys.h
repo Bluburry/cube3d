@@ -14,5 +14,7 @@
 # define MAX		1000000000000
 # define IMG_WIDTH	64
 # define IMG_HEIGHT	64
+# define WALL_CLR 	0x0000FF00
+# define REST_CLR 	0x00000000
 
 #endif
