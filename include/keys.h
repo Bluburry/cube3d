@@ -11,6 +11,7 @@
 # define RIGHT		65363
 # define ESC		65307
 # define PI			3.14159265359
+# define PI_HALF	1.57079632679
 # define MAX		1000000000000
 # define IMG_WIDTH	64
 # define IMG_HEIGHT	64

@@ -77,6 +77,7 @@ typedef struct s_raycast
 	double		wall_x;
 	double		tex_step;
 	double		tex_pos;
+	double		angle;
 	int			map_x;
 	int			map_y;
 	int			step_x;
