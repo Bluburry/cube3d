@@ -23,7 +23,7 @@ vpath %.c src $(PATHS)
 
 # FILES
 SRCS		= cube calcs draw hook_functions init minimap read_file \
-		save_map validate_map raycast_start
+		save_map validate_map raycast_start raycast_helper
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
 
 OBJS_FILES	=	.tst

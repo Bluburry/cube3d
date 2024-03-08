@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/02/21 17:45:40 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/08 09:31:45 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	draw_player(t_data *data);
 
 // raycast_start
 void	raycast_attempt(t_data *data);
+
+// raycast_helper
+void	draw_vert(t_data *data, t_raycast *r, int x);
 
 // --- hooks ---
 
