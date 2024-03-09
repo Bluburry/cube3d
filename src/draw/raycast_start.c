@@ -58,20 +58,96 @@ static void	dda(t_data *data, t_raycast *r)
 		r->side_hit = 3;
 }
 
+void	create_raycast_image(t_data *data, t_image *img, t_map *new_map)
+{
+	img->mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	img->addr = (unsigned int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->sl, &img->ed);
+	new_map->no.img = mlx_xpm_file_to_image(data->mlx, new_map->no_path, \
+		&new_map->no.width, &new_map->no.height);
+	new_map->so.img = mlx_xpm_file_to_image(data->mlx, new_map->so_path, \
+		&new_map->so.width, &new_map->so.height);
+	new_map->we.img = mlx_xpm_file_to_image(data->mlx, new_map->we_path, \
+		&new_map->we.width, &new_map->we.height);
+	new_map->ea.img = mlx_xpm_file_to_image(data->mlx, new_map->ea_path, \
+		&new_map->ea.width, &new_map->ea.height);
+	if (!new_map->no.img || !new_map->so.img || !new_map->ea.img || !new_map->we.img)
+	{
+		printf("ERROR\n");
+		exit(0);
+	}
+	new_map->no.addr = (unsigned int *) mlx_get_data_addr(new_map->no.img, \
+		&new_map->no.bpp, &new_map->no.sl, &new_map->no.ed);
+	new_map->so.addr = (unsigned int *) mlx_get_data_addr(new_map->so.img, \
+		&new_map->so.bpp, &new_map->so.sl, &new_map->so.ed);
+	new_map->we.addr = (unsigned int *) mlx_get_data_addr(new_map->we.img, \
+		&new_map->we.bpp, &new_map->we.sl, &new_map->we.ed);
+	new_map->ea.addr = (unsigned int *) mlx_get_data_addr(new_map->ea.img, \
+		&new_map->ea.bpp, &new_map->ea.sl, &new_map->ea.ed);
+}
+
 void	raycast_attempt(t_data *data)
 {
-	t_raycast	r; //raycast structure
+	t_raycast	r;
+	auto int 	x = -1;
+
+	create_raycast_image(data, &data->img, &data->new_map);
+	r.side.x = 0;
+	r.side.y = 0;
+	r.step_x = 0;
+	r.step_y = 0;
+	while (++x <= WIDTH)
+	{
+		r.camera.x = (2 * x) / (double) WIDTH - 1;
+		r.dir.x = data->player.dir.x + data->player.plane.x * r.camera.x;
+		r.dir.y = data->player.dir.y + data->player.plane.y * r.camera.x;
+		r.map_x = (int) data->player.pos.x;
+		r.map_y = (int) data->player.pos.y;
+		r.delta.x = MAX;
+		r.delta.y = MAX;
+		init_r(data, &r);
+		dda(data, &r);
+		draw_vert(data, &r, x);
+	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
+}
+
+/*
+void	raycast_attempt(t_data *data)
+{
+	t_raycast	r;
 
 	data->img.mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->img.addr = (unsigned int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.sl, &data->img.ed);
-	data->new_map.no.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/bricks.xpm", &data->new_map.no.width, &data->new_map.no.height);
+
+	data->new_map.no.img = mlx_xpm_file_to_image(data->mlx, data->new_map.no_path, &data->new_map.no.width, &data->new_map.no.height);
+	if (!data->new_map.no.img)
+	{
+		printf("ERROR\n");
+		return;
+	}
 	data->new_map.no.addr = (unsigned int *) mlx_get_data_addr(data->new_map.no.img, &data->new_map.no.bpp, &data->new_map.no.sl, &data->new_map.no.ed);
-	data->new_map.so.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/dirt.xpm", &data->new_map.so.width, &data->new_map.so.height);
+	data->new_map.so.img = mlx_xpm_file_to_image(data->mlx, data->new_map.so_path, &data->new_map.so.width, &data->new_map.so.height);
+	if (!data->new_map.so.img)
+	{
+		printf("ERROR\n");
+		return;
+	}
 	data->new_map.so.addr = (unsigned int *) mlx_get_data_addr(data->new_map.so.img, &data->new_map.so.bpp, &data->new_map.so.sl, &data->new_map.so.ed);
-	data->new_map.we.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/coal.xpm", &data->new_map.we.width, &data->new_map.we.height);
+	data->new_map.we.img = mlx_xpm_file_to_image(data->mlx, data->new_map.we_path, &data->new_map.we.width, &data->new_map.we.height);
+	if (!data->new_map.we.img)
+	{
+		printf("ERROR\n");
+		return;
+	}
 	data->new_map.we.addr = (unsigned int *) mlx_get_data_addr(data->new_map.we.img, &data->new_map.we.bpp, &data->new_map.we.sl, &data->new_map.we.ed);
-	data->new_map.ea.img = mlx_xpm_file_to_image(data->mlx, "./maps/textures/mud.xpm", &data->new_map.ea.width, &data->new_map.ea.height);
+	data->new_map.ea.img = mlx_xpm_file_to_image(data->mlx, data->new_map.ea_path, &data->new_map.ea.width, &data->new_map.ea.height);
+	if (!data->new_map.ea.img)
+	{
+		printf("ERROR\n");
+		return;
+	}
 	data->new_map.ea.addr = (unsigned int *) mlx_get_data_addr(data->new_map.ea.img, &data->new_map.ea.bpp, &data->new_map.ea.sl, &data->new_map.ea.ed);
+
 	r.side.x = 0;
 	r.side.y = 0;
 	r.step_x = 0;
@@ -92,3 +168,4 @@ void	raycast_attempt(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 }
+*/
