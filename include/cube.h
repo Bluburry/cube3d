@@ -59,13 +59,14 @@ int	read_file(char *file, t_data *data);
 
 // save_map.c
 int		save_texture_path(char *path, t_data *data);
-void	save_map(char *line, t_data *data);
+int		save_map(char *line, t_data *data);
 
 // validate_map
 int	check_matrix(t_data *data, int i, int j);
 int	check_closed(t_data *data, int i, int j);
 int	check_surrounded(char *map, int rows, int i, int j);
 int	validate_map(t_data *data);
+int	validate_textures(t_data *data);
 
 // logic.
 unsigned long createRGB(char *sub_str);

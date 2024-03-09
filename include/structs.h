@@ -98,12 +98,9 @@ typedef struct s_data
 {
 	void		*mlx;	// MLX main pointer
 	void		*win; 	// Win Pointer
-	int			x; 		// Window Width
-	int			y; 		// Window Height
 	t_image		img;	
 	t_map		new_map;
 	t_vector	dir;
-	t_minimap	minimap;
 	t_raycast	raycast;
 	t_player	player;
 }	t_data;

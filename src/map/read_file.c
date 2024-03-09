@@ -68,46 +68,47 @@ void	save_colours(char *str, t_data *data)
 	free(sub_str);
 }
 
+int	save_settings(t_data *data, char *ptrs)
+{
+	if ((!ft_strncmp(ptrs, "NO", 2) || !ft_strncmp(ptrs, "SO", 2) \
+		|| !ft_strncmp(ptrs, "WE", 2) || !ft_strncmp(ptrs, "EA", 2)))
+	{
+		save_texture_path(ptrs, data);
+		return 0;
+	}
+	else if ((!ft_strncmp(ptrs, "F", 1) || !ft_strncmp(ptrs, "C", 1)))
+	{
+		save_colours(ptrs, data);
+		return 0;
+	}
+	return 1;
+}
+
 int	read_file(char *file, t_data *data)
 {
 	char		*ptrs;
-	auto	int	map_flag = 0, fd;
+	auto	int	fd;
 
 	fd = open(file, O_RDONLY);
-	data->new_map.map = malloc(sizeof(char *) * 23); // Strlen do mapa
+	data->new_map.map = malloc(sizeof(char *) * 24); // Strlen do mapa
 	while (fd > 0)
 	{
 		ptrs = get_next_line(fd, 1000);
 		if (!ptrs)
 			break ;
-		if ((!ft_strncmp(ptrs, "NO", 2) || !ft_strncmp(ptrs, "SO", 2) \
-				|| !ft_strncmp(ptrs, "WE", 2) || !ft_strncmp(ptrs, "EA", 2)) && (map_flag == 0))
-			save_texture_path(ptrs, data);
-		else if ((!ft_strncmp(ptrs, "F", 1) || !ft_strncmp(ptrs, "C", 1)) && (map_flag == 0) )
-			save_colours(ptrs, data);
-		else if (ft_strchr(ptrs, '1'))
+		if (ptrs[0] == '\n')
+			continue;
+		if (validate_textures(data))
 		{
-			if (!data->new_map.no_path || !data->new_map.so_path || \
-				!data->new_map.we_path || !data->new_map.ea_path || \
-				!data->new_map.floor || !data->new_map.sky)
-			{
-				free(ptrs);
-				printf("Missing texture or RGB\n");
-				return 1;
-			}
-			map_flag = 1;
-			save_map(ptrs, data);
+			if (ptrs[0] == ' ' || ptrs[0] == '1')
+				exit(0);
+			save_settings(data, ptrs);
 		}
-		else
-			if (map_flag == 1)
-			{
-				printf("ERROR\n");
-				free(ptrs);
-				return 1;
-			}
+		else if (!validate_textures(data))
+			save_map(ptrs, data);
 		free(ptrs);
 	}
-	data->new_map.map[data->new_map.rows] = 0; // Is it ok!?
+	data->new_map.map[data->new_map.rows] = 0;
 	close(fd);
 	return 0;
 }

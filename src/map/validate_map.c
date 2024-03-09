@@ -71,14 +71,24 @@ int	check_surrounded(char *map, int rows, int i, int j)
 	return 0;
 }
 
+int	validate_textures(t_data *data)
+{
+	if (data->new_map.no_path && data->new_map.so_path && \
+		data->new_map.we_path && data->new_map.ea_path && \
+		data->new_map.floor && data->new_map.sky)
+		return 0;
+	else
+		return 1;
+}
+
 int	validate_map(t_data *data)
 {
-	auto int	i = 0, j;
+	auto int	i = -1, j;
 
-	while (data->new_map.map[i])
+	while (data->new_map.map[++i])
 	{
-		j = 0;
-		while (data->new_map.map[i][j])
+		j = -1;
+		while (data->new_map.map[i][++j])
 		{
 			if (!ft_strchr("NSWE10 ", data->new_map.map[i][j]))
 			{
@@ -96,9 +106,7 @@ int	validate_map(t_data *data)
 					printf("OK3\n");
 					return 1;
 				}
-			j++;
 		}
-		i++;
 	}
 
 	for (int i = 0; data->new_map.map[i]; i++)
