@@ -1,14 +1,5 @@
 #include "cube.h"
 
-void	draw_movements(t_data *data)
-{
-	// draw_lines(data);
-	draw_rectangles(data);
-	draw_player(data);
-	mlx_put_image_to_window(data->mlx, data->win,
-		data->minimap.img.mlx_img, 0, 0);
-}
-
 t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 {
 	if (keycode == W) // W
@@ -28,25 +19,17 @@ t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
 {
 	auto double	ang = data->player.p_ang;
 
-	if (keycode == D) // D
+	if (keycode == D)
  	{
- 		//new_pos.x = data->player.pos.x - data->player.dir.y * 0.2;
-		//new_pos.y = data->player.pos.y + data->player.dir.x * 0.2;
  		ang -= PI / 2;
  		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
  		new_pos.y = data->player.pos.y + (sin(ang)) * 0.2;
- 		// printf("Cos Ang: %f | Sin Ang: %f\n", cos(ang), sin(ang));
- 		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n", ang, new_pos.x, new_pos.y);
- 	}
+	}
  	else if (keycode == A) // A
  	{
- 		//new_pos.x = data->player.pos.x + data->player.dir.y * 0.2;
-		//new_pos.y = data->player.pos.y - data->player.dir.x * 0.2;
  		ang += PI / 2;
  		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
  		new_pos.y = data->player.pos.y + (sin(ang)) * 0.2;
- 		// printf("Cos Ang: %f | Sin Ang: %f\n\n", cos(ang), sin(ang));
- 		// printf("Ang: %f | NewPos_X: %f | NewPos_Y: %f\n\n", ang, new_pos.x, new_pos.y);
  	}
  	return (new_pos);
 }
@@ -64,9 +47,7 @@ void	move(int keycode, t_data *data)
 	{
 		data->player.pos.x = new_pos.x;
 		data->player.pos.y = new_pos.y;
-	 		// printf("data->player.pos.x: %f | data->player.pos.y: %f\n\n", data->player.pos.x, data->player.pos.y);
  		raycast_attempt(data);
-		// draw_movements(data);
 	}
 }
 
@@ -86,12 +67,10 @@ void	rotate(int keycode, t_data *data)
  	data->player.plane.x = data->player.plane.x * cos(rot) - data->player.plane.y * sin(rot); 
  	data->player.plane.y = oldplane_x * sin(rot) + data->player.plane.y * cos(rot); 
  	raycast_attempt(data);
- 	// draw_movements(data);
 }
 
 int	close_window(int keycode, t_data *data)
 {
-	// printf("KEYCODE: %d\n", keycode);
 	if (keycode == ESC)
 		on_destroy(data);
 	else if (keycode == LEFT || keycode == RIGHT)
