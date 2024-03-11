@@ -101,7 +101,6 @@ typedef struct s_data
 	t_image		img;	
 	t_map		new_map;
 	t_vector	dir;
-	t_raycast	raycast;
 	t_player	player;
 }	t_data;
 

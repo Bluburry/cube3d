@@ -78,7 +78,7 @@ int	save_settings(t_data *data, char *ptrs)
 	}
 	else if ((!ft_strncmp(ptrs, "F", 1) || !ft_strncmp(ptrs, "C", 1)))
 	{
-		save_colours(ptrs, data);
+		save_colours(ptrs, data);read_file
 		return 0;
 	}
 	return 1;

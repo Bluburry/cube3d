@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/08 09:31:45 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/11 09:48:06 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@
 # include "structs.h"
 # include "keys.h"
 
+// --- calcs ---
 
 // --- draw ---
-
-// draw.c
-void	draw_rectangle(t_data *data, int x, int y, long color);
-void	draw_rectangles(t_data *data);
-void	draw_line(t_data *data, t_vector pos1, t_vector pos2, long color);
-void	draw_lines(t_data *data);
-void	draw_player(t_data *data);
 
 // raycast_start
 void	raycast_attempt(t_data *data);
@@ -39,11 +33,13 @@ void	draw_vert(t_data *data, t_raycast *r, int x);
 // --- hooks ---
 
 // hook_functions.c
-int		close_window(int keycode, t_data *data);
-int		on_destroy(t_data *data);
-void	movements(int keycode, t_data *data);
+void	move(int keycode, t_data *data);
+void	rotate(int keycode, t_data *data);
 
-// --- map ---
+// hook_handle.c
+int		user_input(int keycode, t_data *data);
+
+// --- init ---
 
 // init.c
 void	init_map(t_data *data);
@@ -51,11 +47,16 @@ void	set_player_position(t_data *data, int x, int y, int pos);
 void	init_data(t_data *data);
 void	init_minimap(t_data *data);
 
+// raycast_images.c
+void	create_raycast_image(t_data *data, t_image *img, t_map *new_map);
+
+// --- map ---
+
 // minimap.c
 void	get_player_position(t_data *data);
 
 // read_file.c
-int	read_file(char *file, t_data *data);
+int		read_file(char *file, t_data *data);
 
 // save_map.c
 int		save_texture_path(char *path, t_data *data);
@@ -68,6 +69,4 @@ int	check_surrounded(char *map, int rows, int i, int j);
 int	validate_map(t_data *data);
 int	validate_textures(t_data *data);
 
-// logic.
-unsigned long createRGB(char *sub_str);
 #endif

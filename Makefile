@@ -14,7 +14,6 @@ MLX_FLDR		= mlx_linux
 MLX_FLAGS		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 CC_FLAGS		= -g -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
 VG				= valgrind -s --leak-check=full --track-origins=yes --log-file=leaks.log
-#provavelmente ter de alterar alguma cena para melhor incluir minilibx
 
 # DIRECTORIES
 DIRS	= calcs draw hooks map init
@@ -22,8 +21,8 @@ PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
 vpath %.c src $(PATHS)
 
 # FILES
-SRCS		= cube calcs draw hook_functions init minimap read_file \
-		save_map validate_map raycast_start raycast_helper
+SRCS		= cube calcs hook_functions hook_handle init minimap read_file \
+	save_map validate_map raycast_start raycast_helper raycast_images #draw 
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
 
 OBJS_FILES	=	.tst

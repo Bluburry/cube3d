@@ -86,7 +86,6 @@ void	init_data(t_data *data)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = img;
-	data->raycast = raycast;
 	data->player = player;
 	init_map(data);
 }
