@@ -27,7 +27,7 @@ _LIBFT	= ft_atoi  ft_bzero  ft_calloc  ft_isalnum  ft_isalpha \
 	ft_strrchr ft_substr ft_strtrim ft_tolower ft_toupper \
 	ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast \
 	ft_lstadd_back ft_lstdelone ft_lstclear \
-	ft_check_alnum ft_cmpstr
+	ft_check_alnum ft_cmpstr ft_strcmp
 
 _FILES	= $(_PRINTF) $(_GNL) $(_LIBFT)
 OBJS	= $(_FILES:%=%.o)

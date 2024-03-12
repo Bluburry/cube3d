@@ -12,17 +12,18 @@ DEFAULT_MAP		= maps/map.cub
 NODIRS			= --no-print-directory
 MLX_FLDR		= mlx_linux
 MLX_FLAGS		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-CC_FLAGS		= -g -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
-VG				= valgrind -s --leak-check=full --track-origins=yes --log-file=leaks.log
+CC_FLAGS		= -g -O0 -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
+VG				= valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=leaks.log
 
 # DIRECTORIES
-DIRS	= calcs draw hooks map init
+DIRS	= calcs draw hooks map init free extras
 PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
 vpath %.c src $(PATHS)
 
 # FILES
 SRCS		= cube calcs hook_functions hook_handle init minimap read_file \
-	save_map validate_map raycast_start raycast_helper raycast_images #draw 
+	save_map validate_map raycast_start raycast_helper raycast_images clean \
+	extras new_validate_map #draw 
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
 
 OBJS_FILES	=	.tst

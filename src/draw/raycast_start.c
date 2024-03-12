@@ -26,7 +26,6 @@ static void	init_r(t_data *data, t_raycast *r)
 		r->step_y = 1;
 		r->side.y = (r->map_y + 1.0 - data->player.pos.y) * r->delta.y;
 	}
-	// printf("data->player.pos.x: %f | data->player.pos.y: %f\n\n", data->player.pos.x, data->player.pos.y);
 }
 
 static void	dda(t_data *data, t_raycast *r)
@@ -61,12 +60,12 @@ static void	dda(t_data *data, t_raycast *r)
 void	raycast_attempt(t_data *data)
 {
 	t_raycast	r;
-	auto int 	x = -1;
 
 	r.side.x = 0;
 	r.side.y = 0;
 	r.step_x = 0;
 	r.step_y = 0;
+	auto int 	x = -1;
 	while (++x <= WIDTH)
 	{
 		r.camera.x = (2 * x) / (double) WIDTH - 1;

@@ -22,18 +22,12 @@ typedef struct s_map
 	char			**map; // Map array [x, y]
 	int				rows; 
 	int				columns;
-	char			*no_path; // North path from map.cub
-	char			*so_path; // South path from map.cub
-	char			*we_path; // West path from map.cub
-	char			*ea_path; // East path from map.cub
 	t_texture		no;
 	t_texture		so;
 	t_texture		we;
 	t_texture		ea;
 	unsigned int	floor;
 	unsigned int	sky;
-	//int		*floor;	// Colour of the floor
-	//int		*sky; // Colour of the sky
 }	t_map;
 
 // Image struct -> It's needed to use MLX lib.

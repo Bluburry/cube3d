@@ -81,7 +81,7 @@ int	validate_textures(t_data *data)
 		return 1;
 }
 
-int	validate_map(t_data *data)
+/* int	validate_map(t_data *data)
 {
 	auto int	i = -1, j;
 
@@ -114,4 +114,4 @@ int	validate_map(t_data *data)
 		printf("%s\n", data->new_map.map[i]);
 	}
 	return 0;
-}
+} */

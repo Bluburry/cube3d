@@ -1,18 +1,5 @@
 #include "cube.h"
 
-void	init_map(t_data *data)
-{
-	data->new_map.map = NULL;
-	data->new_map.no_path = NULL;
-	data->new_map.so_path = NULL;
-	data->new_map.we_path = NULL;
-	data->new_map.ea_path = NULL;
-	data->new_map.floor = 0;	
-	data->new_map.sky = 0;
-	data->new_map.rows = 0;
-	data->new_map.columns = 0;
-}
-
 void	set_north_south_direction(t_player *player, int	pos)
 {
 	if (pos == 'S')
@@ -66,16 +53,30 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 	return ;
 }
 
+void	init_map(t_data *data)
+{
+	data->new_map.map = NULL;
+	data->new_map.no.img = NULL;
+	data->new_map.so.img = NULL;
+	data->new_map.we.img = NULL;
+	data->new_map.ea.img = NULL;
+	data->new_map.no.addr = NULL;
+	data->new_map.so.addr = NULL;
+	data->new_map.we.addr = NULL;
+	data->new_map.ea.addr = NULL;
+	data->new_map.floor = 0;
+	data->new_map.sky = 0;
+	data->new_map.rows = 0;
+	data->new_map.columns = 0;
+}
+
 void	init_data(t_data *data)
 {
 	t_image		img;
-	t_raycast	raycast;
 	t_player	player;
 
 	img.mlx_img = NULL;
 	img.addr = NULL;	
-	raycast.dir.x = 0;
-	raycast.dir.y = 0;
 	player.pos.x = 0;
 	player.pos.y = 0;
 	player.plane.x = 0;

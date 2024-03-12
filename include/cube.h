@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/11 09:48:06 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:31:26 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define CUBE_H
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <math.h>
+# include <errno.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "structs.h"
 # include "keys.h"
@@ -30,6 +31,19 @@ void	raycast_attempt(t_data *data);
 // raycast_helper
 void	draw_vert(t_data *data, t_raycast *r, int x);
 
+// -- extras ---
+
+// extras.c
+int		cpy_line(char *dst, const char *src);
+int		creatergb(unsigned int *clr, char *sub_str);
+
+// --- free ---
+
+// clean.c
+void	clear_matrix(char **mat, int s);
+void	destroy_paths(t_data *data);
+void	destroy_imgs(t_data *data);
+
 // --- hooks ---
 
 // hook_functions.c
@@ -37,7 +51,8 @@ void	move(int keycode, t_data *data);
 void	rotate(int keycode, t_data *data);
 
 // hook_handle.c
-int		user_input(int keycode, t_data *data);
+int		user_input(int keycode, t_data *data); 
+int		on_destroy(t_data *data);
 
 // --- init ---
 
@@ -62,11 +77,17 @@ int		read_file(char *file, t_data *data);
 int		save_texture_path(char *path, t_data *data);
 int		save_map(char *line, t_data *data);
 
+// new_validate_map.c
+int		get_map_rows(char *file);
+char	**get_map(char *file, int rows);
+int		map_checker(char **map, int rows, int x, int y);
+int		validate_map(char **map, int rows);
+
 // validate_map
 int	check_matrix(t_data *data, int i, int j);
 int	check_closed(t_data *data, int i, int j);
 int	check_surrounded(char *map, int rows, int i, int j);
-int	validate_map(t_data *data);
+// int	validate_map(t_data *data);
 int	validate_textures(t_data *data);
 
 #endif
