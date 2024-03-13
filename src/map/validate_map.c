@@ -73,8 +73,8 @@ int	check_surrounded(char *map, int rows, int i, int j)
 
 int	validate_textures(t_data *data)
 {
-	if (data->new_map.no_path && data->new_map.so_path && \
-		data->new_map.we_path && data->new_map.ea_path && \
+	if (data->new_map.no.path && data->new_map.so.path && \
+		data->new_map.we.path && data->new_map.ea.path && \
 		data->new_map.floor && data->new_map.sky)
 		return 0;
 	else

@@ -21,13 +21,13 @@ void	clear_matrix(char **mat, int s)
 
 void	destroy_paths(t_data *data)
 {
-	if (data->new_map.no.path)
+	if (data->new_map.no.path != NULL)
 		free(data->new_map.no.path);
-	if (data->new_map.so.path)
+	if (data->new_map.so.path != NULL)
 		free(data->new_map.so.path);
-	if (data->new_map.we.path)
+	if (data->new_map.we.path != NULL)
 		free(data->new_map.we.path);
-	if (data->new_map.ea.path)
+	if (data->new_map.ea.path != NULL)
 		free(data->new_map.ea.path);
 	if (data->new_map.map)
 	{

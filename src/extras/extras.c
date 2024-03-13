@@ -20,16 +20,17 @@ int	cpy_line(char *dst, const char *src)
 
 int	creatergb(unsigned int *clr, char *sub_str)
 {
-    char    **values;
-    int     rgb[3];
-
-    values = ft_split(sub_str, ',');
-    auto int     i = -1;
+	if (!ft_isdigit(sub_str[0]))
+		return (0);
+    auto char **values = ft_split(sub_str, ',');
+    auto int rgb[3];
+    auto int i = -1;
     while (values[++i])
     {
-		if (i > 3)
+		if (i >= 3 || (!ft_check_alnum(values[i]) && \
+			values[i][ft_strlen(values[i]) - 1] != '\n'))
 		{
-        	printf("rgb wrong amount of values!\n");
+        	printf("Wrong rgb values!\n");
 			break ;
 		}
         rgb[i] = ft_atoi(values[i]);

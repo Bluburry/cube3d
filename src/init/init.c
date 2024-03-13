@@ -64,6 +64,10 @@ void	init_map(t_data *data)
 	data->new_map.so.addr = NULL;
 	data->new_map.we.addr = NULL;
 	data->new_map.ea.addr = NULL;
+	data->new_map.no.path = NULL;
+	data->new_map.so.path = NULL;
+	data->new_map.we.path = NULL;
+	data->new_map.ea.path = NULL;
 	data->new_map.floor = 0;
 	data->new_map.sky = 0;
 	data->new_map.rows = 0;

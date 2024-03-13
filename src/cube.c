@@ -2,14 +2,17 @@
 
 static int	validate(char *fl, t_data *data)
 {
-	char	**map_i;
+	//char	**map_i;
 
-	if (read_file(fl, data))
+	if (read_file(fl, data) != 0)
 	{
 		printf("Invalid Map - Read File\n");
+		on_destroy(data);
 		return (1);
 	}
-	data->new_map.rows = get_map_rows(fl);
+	printf("Valid Map\n");
+	on_destroy(data);
+	/* data->new_map.rows = get_map_rows(fl);
 	map_i = get_map(fl, data->new_map.rows);
 	if (!map_i)
 	{
@@ -24,8 +27,8 @@ static int	validate(char *fl, t_data *data)
 		on_destroy(data);
 		return (1);
 	}
-	data->new_map.map = map_i;
-	return (0);
+	data->new_map.map = map_i; */
+	return (1);
 }
 
 int	main(int ac, char **av)
@@ -41,7 +44,6 @@ int	main(int ac, char **av)
 	init_data(&data);
 	if (validate(av[1], &data))
 		return (1);
-
 	create_raycast_image(&data, &data.img, &data.new_map);
 	get_player_position(&data);
 
