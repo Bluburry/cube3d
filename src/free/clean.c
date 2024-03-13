@@ -22,13 +22,25 @@ void	clear_matrix(char **mat, int s)
 void	destroy_paths(t_data *data)
 {
 	if (data->new_map.no.path != NULL)
+	{
+		printf("%s\n", data->new_map.no.path);
 		free(data->new_map.no.path);
+	}
 	if (data->new_map.so.path != NULL)
+	{
+		printf("%s\n", data->new_map.so.path);
 		free(data->new_map.so.path);
+	}
 	if (data->new_map.we.path != NULL)
+	{
+		printf("%s\n", data->new_map.we.path);
 		free(data->new_map.we.path);
+	}
 	if (data->new_map.ea.path != NULL)
+	{
+		printf("%s\n", data->new_map.ea.path);
 		free(data->new_map.ea.path);
+	}
 	if (data->new_map.map)
 	{
 		clear_matrix(data->new_map.map, -1);

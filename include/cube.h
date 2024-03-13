@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/12 17:31:26 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:25:09 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_vert(t_data *data, t_raycast *r, int x);
 // -- extras ---
 
 // extras.c
-int		cpy_line(char *dst, const char *src);
+char	*cpy_line(const char *src);
 int		creatergb(unsigned int *clr, char *sub_str);
 
 // --- free ---

@@ -3,9 +3,11 @@
 static int	validate(char *fl, t_data *data)
 {
 	//char	**map_i;
+	auto int op = read_file(fl, data);
 
-	if (read_file(fl, data) != 0)
+	if (op != 0)
 	{
+		printf("op: %d\n", op);
 		printf("Invalid Map - Read File\n");
 		on_destroy(data);
 		return (1);

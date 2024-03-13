@@ -1,21 +1,19 @@
 #include "cube.h"
 
-int	cpy_line(char *dst, const char *src)
+char	*cpy_line(const char *src)
 {
-	size_t	s;
-
-	if (!src)
-		return (0);
-	s = ft_strlen(src);
-	dst = (char *) malloc ((s) * sizeof(char));
+	if (!src || !src[2] || !src[3])
+		return (NULL);
+	auto size_t	s = ft_strlen(src + 3);
+	auto char *dst = (char *) malloc ((s) * sizeof(char));
 	if (!dst)
 	{
 		printf("Memory allocation error.\n");
-		return (0);
+		return (NULL);
 	}
-	ft_memcpy(dst, src, s);
+	ft_memcpy(dst, src + 3, s - 1);
 	dst[s - 1] = 0;
-	return (1);
+	return (dst);
 }
 
 int	creatergb(unsigned int *clr, char *sub_str)
