@@ -1,36 +1,47 @@
 #include "cube.h"
 
-static void	get_to_map(int fd)
+static char	*get_to_map(int fd)
 {
 	char	*ln;
 
 	while (1)
 	{
 		ln = get_next_line(fd, 1000);
+		if (!ln)
+			break;
 		if (ln[0] != 'N' && ln[0] != 'S' && \
 			ln[0] != 'W' && ln[0] != 'E' && \
 			ln[0] != 'F' && ln[0] != 'C' && \
 			ln[0] != '\n')
 		{
-			free(ln);
-			break ;
+			if (ft_strchr(ln, '1'))
+				return (ln);
 		}
 		free(ln);
 	}
+	return (NULL);
 }
 
 int	get_map_rows(char *file)
 {
 	auto char *ln;
-	auto int fd = open(file, O_RDONLY);
-	get_to_map(fd);
-	auto int i = 0;
+	auto int fd = open(file, O_RDONLY), i = 1, j, cnt;
+	ln = get_to_map(fd);
+	if (!ln)
+		return(i);
+	free(ln);
 	while(1)
 	{
 		ln = get_next_line(fd, 1000);
 		if (!ln)
 			break ;
-		i++;
+		j = -1;
+		cnt = 0;
+		while (!cnt && ln[++j])
+			if (ft_strchr("NSWE10", ln[j]))
+				cnt = 1;
+		if (cnt)
+			i++;
 		free(ln);
 	}
 	close(fd);
@@ -39,27 +50,78 @@ int	get_map_rows(char *file)
 
 char	**get_map(char *file, int rows)
 {
-	char	**mp;
-	char	*ln;
-
-	mp = (char **) malloc((rows + 1) * (sizeof(char *)));
-	if (!mp)
-		return (NULL);
-	mp[rows] = 0;
-	auto int fd = open(file, O_RDONLY);
-	get_to_map(fd);
-	auto int i = -1;
-	while (++i < rows)
+	auto int fd = open(file, O_RDONLY), i = -1, j, cnt;
+	auto char **mp = (char **) malloc((rows + 1) * \
+		(sizeof(char *))), *ln = get_to_map(fd);
+	if (!mp || !ln)
 	{
+		clear_matrix(mp, rows + 1);
+		return (NULL);
+	}
+	while (1)
+	{
+		j = -1;
+		cnt = 0;
+		while (!cnt && ln[++j])
+			if (ft_strchr("NSWE10", ln[j]))
+				cnt = 1;
+		if (cnt)
+		{
+			mp[++i] = ln;
+			mp[i][ft_strlen(ln) - 1] = 0;
+		}
+		else
+			free(ln);
 		ln = get_next_line(fd, 1000);
 		if (!ln)
 			break ;
-		mp[i] = ln;
-		mp[i][ft_strlen(ln) - 1] = 0;
 	}
+	mp[rows] = 0;
 	close(fd);
 	return (mp);
 }
+
+/* static void	cpy_map(int fd, char **mp, char *ln)
+{
+	auto int i = -1, j, cpy = -1;
+	while (1)
+	{
+		j = -1;
+		while (ln[++j])
+		{
+			if (cpy == 1 && !ft_strchr("NSWE10", ln[++j]))
+				cpy = 0;
+			else if (cpy == -1 && ft_strchr("NSWE10", ln[++j]))
+				cpy = 1;
+		}
+		if (cpy)
+		{
+			mp[++i] = ln;
+			mp[i][ft_strlen(ln) - 1] = 0;
+		}
+		else
+			free(ln);
+		ln = get_next_line(fd, 1000);
+		if (!ln)
+			break ;
+	}
+}
+
+char	**get_map(char *file, int rows)
+{
+	auto int fd = open(file, O_RDONLY);
+	auto char **mp = (char **) malloc((rows + 1) * \
+		(sizeof(char *))), *ln = get_to_map(fd);
+	if (!mp || !ln)
+	{
+		clear_matrix(mp, rows + 1);
+		return (NULL);
+	}
+	cpy_map(fd, mp, ln);
+	mp[rows] = 0;
+	close(fd);
+	return (mp);
+} */
 
 /* static int	map_helper(char **map, int rows, int x, int y)
 {

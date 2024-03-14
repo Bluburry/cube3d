@@ -4,6 +4,8 @@ void	clear_matrix(char **mat, int s)
 {
 	int	i;
 
+	if (!mat)
+		return ;
 	if (s > 0)
 	{
 		i = -1;
