@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/13 19:25:09 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:12:35 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	draw_vert(t_data *data, t_raycast *r, int x);
 // extras.c
 char	*cpy_line(const char *src);
 int		creatergb(unsigned int *clr, char *sub_str);
+int		final_checker(int fd, char *checker, char *ptr);
 
 // --- free ---
 
@@ -80,14 +81,11 @@ int		save_map(char *line, t_data *data);
 // new_validate_map.c
 int		get_map_rows(char *file);
 char	**get_map(char *file, int rows);
-int		map_checker(char **map, int rows, int x, int y);
-int		validate_map(char **map, int rows);
 
 // validate_map
 int	check_matrix(t_data *data, int i, int j);
 int	check_closed(t_data *data, int i, int j);
 int	check_surrounded(char *map, int rows, int i, int j);
-// int	validate_map(t_data *data);
-int	validate_textures(t_data *data);
+int	validate_map(t_data *data);
 
 #endif

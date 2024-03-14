@@ -71,17 +71,7 @@ int	check_surrounded(char *map, int rows, int i, int j)
 	return 0;
 }
 
-int	validate_textures(t_data *data)
-{
-	if (data->new_map.no.path && data->new_map.so.path && \
-		data->new_map.we.path && data->new_map.ea.path && \
-		data->new_map.floor && data->new_map.sky)
-		return 0;
-	else
-		return 1;
-}
-
-/* int	validate_map(t_data *data)
+int	validate_map(t_data *data)
 {
 	auto int	i = -1, j;
 
@@ -114,4 +104,4 @@ int	validate_textures(t_data *data)
 		printf("%s\n", data->new_map.map[i]);
 	}
 	return 0;
-} */
+}

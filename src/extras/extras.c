@@ -44,3 +44,34 @@ int	creatergb(unsigned int *clr, char *sub_str)
 	*clr = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + (rgb[2] & 0xff);
 	return (1);
 }
+
+/*
+	ret for debugging purposes
+	ret = 1 -> error from previous function (duplicate texture/colour error)
+	^ now already returned returned from calling function
+	ret = 2 -> duplicate colour/missing texture
+	ret = 3 -> invalid character found in map section
+*/
+int	final_checker(int fd, char *checker, char *ptr)
+{
+	auto int ret = 0, i = -1, j;
+	while (!ret && ++i < 6)
+		if (checker[i] != 1)
+			ret = 2;
+	while (!ret)
+	{
+		ptr = get_next_line(fd, 1000);
+		if (!ptr)
+			break ;
+		j = -1;
+		while(!ret && ptr[++j])
+		{
+			if (ptr[j] != ' ' && ptr[j] != '0' && ptr[j] != '1' && \
+				ptr[j] != 'N' && ptr[j] != 'S' && ptr[j] != 'W' && \
+				ptr[j] != 'E' && ptr[j] != '\n')
+				ret = 3;
+		}
+		free(ptr);
+	}
+	return (ret);
+}

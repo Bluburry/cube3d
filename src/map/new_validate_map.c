@@ -43,6 +43,8 @@ char	**get_map(char *file, int rows)
 	char	*ln;
 
 	mp = (char **) malloc((rows + 1) * (sizeof(char *)));
+	if (!mp)
+		return (NULL);
 	mp[rows] = 0;
 	auto int fd = open(file, O_RDONLY);
 	get_to_map(fd);
@@ -59,7 +61,7 @@ char	**get_map(char *file, int rows)
 	return (mp);
 }
 
-static int	map_helper(char **map, int rows, int x, int y)
+/* static int	map_helper(char **map, int rows, int x, int y)
 {
 	if (map[x][y] == 0)
 		return (map_checker(map, rows, x, y));
@@ -127,4 +129,4 @@ int	validate_map(char **map, int rows)
 	err = map_checker(map, rows, x, y);
 	map[x][y] = start;
 	return (err);
-}
+} */
