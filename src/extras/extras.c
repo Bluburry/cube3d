@@ -15,7 +15,10 @@ char	*cpy_line(const char *src)
 		return (NULL);
 	}
 	ft_memcpy(dst, src + i, s - 1);
-	dst[s - 1] = 0;
+	s -= 2;
+	while (dst[s] && dst[s] == ' ')
+		s--;
+	dst[s + 1] = 0;
 	return (dst);
 }
 

@@ -1,7 +1,7 @@
-NO     ./maps/bricks.xpm   
-SO   ./maps/coal.xpm    
-WE ./maps/dirt.xpm    
-EA     ./maps/mud.xpm   
+NO   ./maps/textures/mud.xpm    
+SO     ./maps/textures/bricks.xpm   
+WE ./maps/textures/dirt.xpm    
+EA     ./maps/textures/coal.xpm   
 
 F 220,100,0
 C 225,30,0
