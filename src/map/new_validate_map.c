@@ -4,6 +4,8 @@ static char	*get_to_map(int fd)
 {
 	char	*ln;
 
+	if (fd < 0)
+		return (NULL);
 	while (1)
 	{
 		ln = get_next_line(fd, 1000);
@@ -54,10 +56,7 @@ char	**get_map(char *file, int rows)
 	auto char **mp = (char **) malloc((rows + 1) * \
 		(sizeof(char *))), *ln = get_to_map(fd);
 	if (!mp || !ln)
-	{
-		clear_matrix(mp, rows + 1);
-		return (NULL);
-	}
+		return (clear_matrix(mp, rows + 1), NULL);
 	while (1)
 	{
 		j = -1;

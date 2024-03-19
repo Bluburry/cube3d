@@ -2,8 +2,11 @@
 
 static void	validate(char *fl, t_data *data)
 {
-	if (read_file(fl, data))
+	auto int err = read_file(fl, data);
+
+	if (err)
 	{
+		printf("err: %d\n", err);
 		printf("Invalid File - Read File\n");
 		on_destroy(data);
 	}

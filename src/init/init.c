@@ -24,17 +24,17 @@ void	set_west_east_direction(t_player *player, int pos)
 {
 	if (pos == 'E')
 	{
-		player->p_ang = 0;
-		player->dir.x = 1;
-		player->dir.y = 0;
+		player->p_ang = PI;
+		player->dir.x = 1.0f;
+		player->dir.y = 0.0f;
 		player->plane.x = 0;
 		player->plane.y = 0.66;
 	}
 	else if (pos == 'W')
 	{
-		player->p_ang = PI;
-		player->dir.x = -1;
-		player->dir.y = 0;
+		player->p_ang = 0;
+		player->dir.x = -1.0f;
+		player->dir.y = 0.0f;
 		player->plane.x = 0;
 		player->plane.y = -0.66;
 	}
@@ -42,15 +42,11 @@ void	set_west_east_direction(t_player *player, int pos)
 
 void	set_player_position(t_data *data, int x, int y, int pos)
 {
-	if (data->player.pos.y == 0 && data->player.pos.x == 0)
-	{
-		data->player.pos.y = (double)x + 0.5;
-		data->player.pos.x = (double)y + 0.5;
+	data->player.pos.y = (double)x + 0.5;
+	data->player.pos.x = (double)y + 0.5;
 
-		set_north_south_direction(&data->player, pos);
-		set_west_east_direction(&data->player, pos);
-	}
-	return ;
+	set_north_south_direction(&data->player, pos);
+	set_west_east_direction(&data->player, pos);
 }
 
 void	init_map(t_data *data)

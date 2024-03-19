@@ -58,7 +58,6 @@ typedef struct s_stk
 
 typedef struct s_player
 {
-	double		angle;
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;

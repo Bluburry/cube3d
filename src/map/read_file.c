@@ -2,17 +2,27 @@
 
 static int	helper_helper(t_data *data, char *checker, char *ptr)
 {
+	auto int i = 1;
+	if (!ft_strncmp(ptr, "F", 1) || !ft_strncmp(ptr, "C", 1))
+		while (ptr[i] && ptr[i] == ' ')
+			i++;
 	if (!ft_strncmp(ptr, "F", 1) && ptr[1] && ptr[2])
 	{
-		if (creatergb(&data->new_map.floor, ptr + 2) == 0)
+		if (creatergb(&data->new_map.floor, ptr + i) == 0)
+		{
+			printf("HI - Invalid RGB\n");
 			return (2);
+		}
 		checker[4]++;
 		return (1);
 	}
 	else if (!ft_strncmp(ptr, "C", 1) && ptr[1] && ptr[2])
 	{
-		if (creatergb(&data->new_map.sky, ptr + 2) == 0)
+		if (creatergb(&data->new_map.sky, ptr + i) == 0)
+		{
+			printf("Invalid RGB\n");
 			return (2);
+		}
 		checker[5]++;
 		return (1);
 	}

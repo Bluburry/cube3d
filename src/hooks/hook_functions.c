@@ -2,12 +2,12 @@
 
 static t_vector	move_forward_backward(t_data *data, int keycode, t_vector new_pos)
 {
-	if (keycode == W) // W
+	if (keycode == W)
  	{
  		new_pos.x = data->player.pos.x + (data->player.dir.x) * 0.2;
  		new_pos.y = data->player.pos.y + (data->player.dir.y) * 0.2;
  	}
- 	else if (keycode == S) // S
+ 	else if (keycode == S)
  	{
  		new_pos.x = data->player.pos.x - (data->player.dir.x * 0.2);
  		new_pos.y = data->player.pos.y - (data->player.dir.y * 0.2);
@@ -25,7 +25,7 @@ static t_vector	move_left_right(t_data *data, int keycode, t_vector new_pos)
  		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
  		new_pos.y = data->player.pos.y + (sin(ang)) * 0.2;
 	}
- 	else if (keycode == A) // A
+ 	else if (keycode == A)
  	{
  		ang += PI / 2;
  		new_pos.x = data->player.pos.x + (cos(ang)) * 0.2;
@@ -66,5 +66,6 @@ void	rotate(int keycode, t_data *data)
  	data->player.dir.y = olddir_x * sin(rot) + data->player.dir.y * cos(rot);
  	data->player.plane.x = data->player.plane.x * cos(rot) - data->player.plane.y * sin(rot); 
  	data->player.plane.y = oldplane_x * sin(rot) + data->player.plane.y * cos(rot); 
+
  	raycast_attempt(data);
 }
