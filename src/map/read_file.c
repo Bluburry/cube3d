@@ -10,7 +10,7 @@ static int	helper_helper(t_data *data, char *checker, char *ptr)
 	{
 		if (creatergb(&data->new_map.floor, ptr + i) == 0)
 		{
-			printf("HI - Invalid RGB\n");
+			printf("Invalid RGB\n");
 			return (2);
 		}
 		checker[4]++;

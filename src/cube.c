@@ -1,5 +1,33 @@
 #include "cube.h"
 
+static void	check_file(int argc, char **argv)
+{
+	char	*fl;
+
+	if (argc != 2)
+	{
+		printf("No map file specified.\n");
+		exit(1);
+	}
+	fl = argv[1];
+	auto int i = 0;
+	while(fl[i])
+		i++;
+	if (i < 6 || ft_strncmp(fl + i - 4, ".cub", 4))
+	{
+		printf("Invalid map file format.\n");
+		exit(1);
+	}
+	auto int fd = open(fl, O_RDONLY);
+	if (fd < 1)
+	{
+		printf("Could not open file.\n");
+		close(fd);
+		exit(1);
+	}
+	close(fd);
+}
+
 static void	validate(char *fl, t_data *data)
 {
 	auto int err = read_file(fl, data);
@@ -34,12 +62,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac != 2)
-	{
-		printf("WHERE IS THE THE MAP!!\n");
-		return (1);
-	}
-
+	check_file(ac, av);
 	init_data(&data);
 	validate(av[1], &data);
 	get_player_position(&data);
