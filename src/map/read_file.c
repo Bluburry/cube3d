@@ -82,7 +82,11 @@ static int	line_checker(t_data *data, char *checker, char *ptr)
 */
 int	read_file(char *file, t_data *data)
 {
-	auto char *ptr, checker[6] = {0, 0, 0, 0, 0, 0};
+	auto char *ptr, *cub, checker[6] = {0, 0, 0, 0, 0, 0};
+
+	cub = ft_strchr(file, '.');
+	if (ft_strcmp(cub, ".cub"))
+		return (1);
 	auto int fd = open(file, O_RDONLY), op = 1;
 	if (fd < 0)
 		return (perror("File does not exist"), 1);
