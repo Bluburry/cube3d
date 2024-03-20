@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/14 18:12:35 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:01:26 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_data(t_data *data);
 void	init_minimap(t_data *data);
 
 // raycast_images.c
-void	create_raycast_image(t_data *data, t_image *img, t_map *new_map);
+void	create_raycast_image(t_data *data);
 
 // --- map ---
 
