@@ -74,9 +74,8 @@ int	main(int ac, char **av)
 		while (data.new_map.map[i][++j]) {
 			printf("%c", data.new_map.map[i][j]);
 		}
-		printf("\n");
 	}
-	printf("NO: %s\nSO: %s\nEA: %s\nWE: %s\n", data.new_map.no.path, \
+	printf("\nNO: %s\nSO: %s\nEA: %s\nWE: %s\n", data.new_map.no.path, \
 		data.new_map.so.path, data.new_map.ea.path, data.new_map.we.path); */
 
 	data.mlx = mlx_init();

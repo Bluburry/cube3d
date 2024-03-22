@@ -1,0 +1,16 @@
+NO ./maps/textures/mud.xpm
+SO ./maps/textures/bricks.xpm
+WE ./maps/textures/dirt.xpm
+EA ./maps/textures/coal.xpm
+F 220,100,0
+C 225,30,0
+
+    111
+   10001
+  1000001
+ 100111001
+1001   1001
+ 100111001
+  1000001
+   10N01
+    111

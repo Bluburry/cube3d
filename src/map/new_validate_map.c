@@ -10,7 +10,7 @@ static char	*get_to_map(int fd)
 	{
 		ln = get_next_line(fd, 1000);
 		if (!ln)
-			break;
+			break ;
 		if (ln[0] != 'N' && ln[0] != 'S' && \
 			ln[0] != 'W' && ln[0] != 'E' && \
 			ln[0] != 'F' && ln[0] != 'C' && \
@@ -30,9 +30,9 @@ int	get_map_rows(char *file)
 	auto int fd = open(file, O_RDONLY), i = 1, j, cnt;
 	ln = get_to_map(fd);
 	if (!ln)
-		return(i);
+		return (i);
 	free(ln);
-	while(1)
+	while (1)
 	{
 		ln = get_next_line(fd, 1000);
 		if (!ln)
@@ -67,7 +67,7 @@ char	**get_map(char *file, int rows)
 		if (cnt)
 		{
 			mp[++i] = ln;
-			mp[i][ft_strlen(ln) - 1] = 0;
+			mp[i][ft_strlen(ln)] = 0;
 		}
 		else
 			free(ln);
@@ -76,8 +76,7 @@ char	**get_map(char *file, int rows)
 			break ;
 	}
 	mp[rows] = 0;
-	close(fd);
-	return (mp);
+	return (close(fd), mp);
 }
 
 /* static void	cpy_map(int fd, char **mp, char *ln)
