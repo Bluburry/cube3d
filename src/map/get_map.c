@@ -65,10 +65,7 @@ char	**get_map(char *file, int rows)
 			if (ft_strchr("NSWE10", ln[j]))
 				cnt = 1;
 		if (cnt)
-		{
 			mp[++i] = ln;
-			mp[i][ft_strlen(ln)] = 0;
-		}
 		else
 			free(ln);
 		ln = get_next_line(fd, 1000);

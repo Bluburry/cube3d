@@ -50,12 +50,15 @@ static void	validate(char *fl, t_data *data)
 		printf("Error getting map.\n");
 		on_destroy(data);
 	}
-	// on_destroy(data);
-	/* if (validate_map(data))
+	auto int i = -1;
+	while (data->new_map.map[++i]) {
+		printf("%s", data->new_map.map[i]);
+	}
+	if (validate_map(data))
 	{
 		printf("Invalid Map - Validate Map\n");
 		on_destroy(data);
-	} */
+	}
 }
 
 int	main(int ac, char **av)
@@ -68,12 +71,9 @@ int	main(int ac, char **av)
 	get_player_position(&data);
 
 	/* printf("row count : %d\n", data.new_map.rows);
-	auto int i = -1, j;
+	auto int i = -1;
 	while (data.new_map.map[++i]) {
-		j = -1;
-		while (data.new_map.map[i][++j]) {
-			printf("%c", data.new_map.map[i][j]);
-		}
+		printf("%s", data.new_map.map[i]);
 	}
 	printf("\nNO: %s\nSO: %s\nEA: %s\nWE: %s\n", data.new_map.no.path, \
 		data.new_map.so.path, data.new_map.ea.path, data.new_map.we.path); */
