@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/25 14:57:06 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:04:42 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void	destroy_imgs(t_data *data);
 
 // hook_functions.c
 void	move(int keycode, t_data *data);
-void	rotate(int keycode, t_data *data);
+void	rotate(int keycode, double rot, t_data *data);
 
 // hook_handle.c
 int		user_input(int keycode, t_data *data); 
 int		on_destroy(t_data *data);
+int		mouse_input(int x, int y, t_data *data);
 
 // --- init ---
 

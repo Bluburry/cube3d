@@ -1,10 +1,10 @@
 NO     ./maps/textures/bricks.xpm   
 SO   ./maps/textures/mud.xpm    
-WE ./maps/textures/dirt.xpm    
+WE ./maps/textures/dirt.xpm
 EA     ./maps/textures/coal.xpm   
 
-F       220,       100,   0
-C    225,  30 ,              0
+F       40,       40,   40
+C    50,  50 ,              175
 
 
                                 

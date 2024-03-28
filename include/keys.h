@@ -1,8 +1,8 @@
 #ifndef KEYS_H
 # define KEYS_H
 
-# define WIDTH 		720
-# define HEIGHT 	420
+# define WIDTH 		1280	
+# define HEIGHT 	720
 # define W			119
 # define S			115
 # define D			100
@@ -10,6 +10,8 @@
 # define LEFT		65361
 # define RIGHT		65363
 # define ESC		65307
+# define ALT		65289
+# define TAB		65513
 # define PI			3.14159265359
 # define PI_HALF	1.57079632679
 # define MAX		1000000000000

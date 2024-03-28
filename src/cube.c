@@ -11,7 +11,7 @@ static void	check_file(int argc, char **argv)
 	}
 	fl = argv[1];
 	auto int i = 0;
-	while(fl[i])
+	while (fl[i])
 		i++;
 	if (i < 6 || ft_strncmp(fl + i - 4, ".cub", 4))
 	{
@@ -50,10 +50,6 @@ static void	validate(char *fl, t_data *data)
 		printf("Error getting map.\n");
 		on_destroy(data);
 	}
-	auto int i = -1;
-	while (data->new_map.map[++i]) {
-		printf("%s", data->new_map.map[i]);
-	}
 	if (validate_map(data))
 	{
 		printf("Invalid Map - Validate Map\n");
@@ -83,9 +79,14 @@ int	main(int ac, char **av)
 
 	create_raycast_image(&data);
 	raycast_attempt(&data);
+	mlx_mouse_move(data.mlx, data.win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_hide(data.mlx, data.win);
+
+	//mlx_do_key_autorepeaton(data.mlx);
 
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &user_input, &data);	
+	mlx_hook(data.win, 6, 1L << 6, &mouse_input, &data);
 	mlx_loop(data.mlx);
 
 	return (0);

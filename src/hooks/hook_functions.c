@@ -51,9 +51,9 @@ void	move(int keycode, t_data *data)
 	}
 }
 
-void	rotate(int keycode, t_data *data)
+void	rotate(int keycode, double rot, t_data *data)
 {
-	auto double olddir_x = data->player.dir.x, rot = 0.1, oldplane_x = data->player.plane.x;
+	auto double olddir_x = data->player.dir.x, oldplane_x = data->player.plane.x;
 
  	if (keycode == LEFT)
  		rot *= -1;	
