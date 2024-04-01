@@ -2,6 +2,7 @@
 
 int	on_destroy(t_data *data)
 {
+	// mlx_mouse_show(data->mlx, data->win);
 	destroy_paths(data);
 	destroy_imgs(data);
 	if (data->win)

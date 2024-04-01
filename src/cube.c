@@ -80,9 +80,9 @@ int	main(int ac, char **av)
 	create_raycast_image(&data);
 	raycast_attempt(&data);
 	mlx_mouse_move(data.mlx, data.win, WIDTH / 2, HEIGHT / 2);
-	mlx_mouse_hide(data.mlx, data.win);
+	// mlx_mouse_hide(data.mlx, data.win);
 
-	//mlx_do_key_autorepeaton(data.mlx);
+	// mlx_do_key_autorepeaton(data.mlx);
 
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &user_input, &data);	

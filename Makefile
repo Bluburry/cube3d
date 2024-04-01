@@ -67,7 +67,7 @@ run : all
 leaks : all
 	@$(VG) ./$(NAME) $(DEFAULT_MAP)
 
-debug :
+debug : all
 	@gdb -tui --args $(NAME) $(DEFAULT_MAP)
 
 .SILENT:
