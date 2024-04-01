@@ -17,7 +17,7 @@ int	on_destroy(t_data *data)
 
 int	user_input(int keycode, t_data *data)
 {
-	mlx_mouse_hide(data->mlx, data->win);
+	// mlx_mouse_hide(data->mlx, data->win);
 	mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 	if (keycode == ESC)
 		on_destroy(data);
@@ -25,8 +25,8 @@ int	user_input(int keycode, t_data *data)
 		rotate(keycode, 0.1, data);
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		move(keycode, data);
-	else if (keycode == ALT || keycode == TAB)
-		mlx_mouse_show(data->mlx, data->win);
+	// else if (keycode == ALT || keycode == TAB)
+	//	mlx_mouse_show(data->mlx, data->win);
 	return (0);
 }
 

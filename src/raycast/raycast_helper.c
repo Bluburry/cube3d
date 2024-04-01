@@ -48,13 +48,9 @@ void	draw_vert(t_data *data, t_raycast *r, int x)
 		r->draw_end = HEIGHT - 1;
 	auto int y = -1;
 	while (++y < r->draw_start)
-	{
 		data->img.addr[y * WIDTH + x] = data->new_map.sky;
-	}
 	draw_wall(data, r, x, y);
 	y = r->draw_end;
 	while (y++ < HEIGHT)
-	{
 		data->img.addr[y * WIDTH + x] = data->new_map.floor;
-	}
 }
