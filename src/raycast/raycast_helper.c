@@ -33,14 +33,6 @@ static void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 		r->tex_y = (int) r->tex_pos & (IMG_HEIGHT - 1);
 		r->tex_pos += r->tex_step;
 		clr = addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		/* if (r->side_hit == 0)
-			clr = data->new_map.we.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else if (r->side_hit == 1)
-			clr = data->new_map.no.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else if (r->side_hit == 2)
-			clr = data->new_map.ea.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else
-			clr = data->new_map.so.addr[r->tex_y * IMG_WIDTH + r->tex_x]; */
 		if (clr > 0)
 			data->img.addr[y * WIDTH + x] = clr;
 	}
