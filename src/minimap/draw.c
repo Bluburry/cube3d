@@ -5,46 +5,45 @@ static void	draw_rectangle(t_data *data, int x, int y, long color)
 	int	i;
 	int	j;
 
-	x *= data->minimap.map_size;
-	y *= data->minimap.map_size;
-	i = 0;
-	while (i < data->minimap.map_size)
+	x *= MINIMAP_SZ;
+	y *= MINIMAP_SZ;
+	i = -1;
+	while (++i < MINIMAP_SZ)
 	{
-		j = 0;
-		while (j < data->minimap.map_size)
+		j = -1;
+		while (++j < MINIMAP_SZ)
 		{
-			data->minimap.img.addr[(y + i) * 33
-				* data->minimap.map_size + x + j] = color;
-			j++;
+			data->minimap.img.addr[(y + i) * 33 \
+				* MINIMAP_SZ + x + j] = color;
 		}
-		i++;
 	}
 }
 
 void	draw_rectangles(t_data *data)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < data->new_map.rows)
+	auto int i = -1, j;
+	while (data->new_map.map[++i])
 	{
-		j = 0;
-		while (data->new_map.map[i][j])
+		j = -1;
+		while (data->new_map.map[i][++j])
+			draw_rectangle(data, j, i, MM_CLR);
+	}
+	i = -1;
+	while (data->new_map.map[++i])
+	{
+		j = -1;
+		while (data->new_map.map[i][++j])
 		{
 			if (data->new_map.map[i][j] == '1')
-				draw_rectangle(data, j, i, 0x00FFFFFF);
-			else
-				draw_rectangle(data, j, i, 0x00000000);
-			j++;
+				draw_rectangle(data, j, i, MM_W_CLR);
 		}
-		i++;
 	}
 }
 
 void	draw_player(t_data *data)
 {
-	draw_rectangle(data, (int)data->player.pos.x, (int)data->player.pos.y, 0x00FF0000);
+	draw_rectangle(data, (int)data->player.pos.x, \
+		(int)data->player.pos.y, 0x00FF0000);
 }
 
 void	draw_movements(t_data *data)

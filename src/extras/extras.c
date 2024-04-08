@@ -7,7 +7,7 @@ char	*cpy_line(const char *src)
 	auto int i = 2;
 	while (src[i] && src[i] == ' ')
 		i++;
-	auto size_t	s = ft_strlen(src + i);
+	auto size_t s = ft_strlen(src + i);
 	auto char *dst = (char *) malloc ((s) * sizeof(char));
 	if (!dst)
 	{
@@ -20,4 +20,20 @@ char	*cpy_line(const char *src)
 		s--;
 	dst[s + 1] = 0;
 	return (dst);
+}
+
+int	get_map_columns(t_data *data)
+{
+	auto int cl = 0, i = -1, j;
+	while (data->new_map.map[++i])
+	{
+		j = 0;
+		while (data->new_map.map[i][j])
+			j++;
+		while (j > 0 && data->new_map.map[i][j] != '1')
+			j--;
+		if (j > cl)
+			cl = j;
+	}
+	return (cl + 1);
 }

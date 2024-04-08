@@ -43,10 +43,12 @@ typedef struct s_image
 // Minimap in the game.
 typedef struct s_minimap
 {
-	t_image	img; // It's a different image from the game, so it must have its own.
+	t_image	img;
 	int		width;
 	int		height;
-	int		map_size;
+	int		bpp;
+	int		sl;
+	int		end;
 }	t_minimap;
 
 // Struct to save double.
@@ -89,8 +91,8 @@ typedef struct s_raycast
 
 typedef struct s_data
 {
-	void		*mlx;	// MLX main pointer
-	void		*win; 	// Win Pointer
+	void		*mlx;
+	void		*win;
 	t_image		img;	
 	t_map		new_map;
 	t_vector	dir;
@@ -98,4 +100,4 @@ typedef struct s_data
 	t_minimap	minimap;
 }	t_data;
 
-# endif
+#endif

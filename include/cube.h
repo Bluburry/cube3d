@@ -6,7 +6,7 @@
 /*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/03/28 19:04:42 by bluburry         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:15:27 by bluburry         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	draw_vert(t_data *data, t_raycast *r, int x);
 
 // extras.c
 char	*cpy_line(const char *src);
+int		get_map_columns(t_data *data);
 
 // checker.c
 int		final_checker(int fd, char *checker, char *ptr);

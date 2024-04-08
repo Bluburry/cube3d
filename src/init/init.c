@@ -1,41 +1,28 @@
 #include "cube.h"
 
-void	set_north_south_direction(t_player *player, int	pos)
+static void	set_direction(t_player *player, int pos)
 {
 	if (pos == 'S')
 	{
 		player->p_ang = PI * 3 / 2;
-		player->dir.x = 0.0f;
 		player->dir.y = 1.0f;
 		player->plane.x = -0.66;
-		player->plane.y = 0;
 	}
 	else if (pos == 'N')
 	{
 		player->p_ang = PI / 2;
-		player->dir.x = 0.0f;
 		player->dir.y = -1.0f;
 		player->plane.x = 0.66;
-		player->plane.y = 0;
 	}
-}
-
-void	set_west_east_direction(t_player *player, int pos)
-{
-	if (pos == 'E')
+	else if (pos == 'E')
 	{
 		player->p_ang = PI;
 		player->dir.x = 1.0f;
-		player->dir.y = 0.0f;
-		player->plane.x = 0;
 		player->plane.y = 0.66;
 	}
 	else if (pos == 'W')
 	{
-		player->p_ang = 0;
 		player->dir.x = -1.0f;
-		player->dir.y = 0.0f;
-		player->plane.x = 0;
 		player->plane.y = -0.66;
 	}
 }
@@ -44,9 +31,13 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 {
 	data->player.pos.y = (double)x + 0.5;
 	data->player.pos.x = (double)y + 0.5;
+	data->player.p_ang = 0;
+	data->player.dir.x = 0.0f;
+	data->player.dir.y = 0.0f;
+	data->player.plane.x = 0;
+	data->player.plane.y = 0;
 
-	set_north_south_direction(&data->player, pos);
-	set_west_east_direction(&data->player, pos);
+	set_direction(&data->player, pos);
 }
 
 void	init_map(t_data *data)
@@ -77,7 +68,7 @@ void	init_data(t_data *data)
 	t_minimap	minimap;
 
 	img.mlx_img = NULL;
-	img.addr = NULL;	
+	img.addr = NULL;
 	player.pos.x = 0;
 	player.pos.y = 0;
 	player.plane.x = 0;
@@ -85,8 +76,9 @@ void	init_data(t_data *data)
 	player.p_ang = 0;
 	player.dir.x = 0;
 	player.dir.y = 0;
+	minimap.height = 50;
+	minimap.width = 50;
 	data->mlx = NULL;
-	minimap.map_size = 8;
 	data->win = NULL;
 	data->img = img;
 	data->minimap = minimap;
@@ -96,14 +88,13 @@ void	init_data(t_data *data)
 
 void	init_minimap(t_data *data)
 {
-	int	bpp;
-	int	sl;
-	int	end;
-
-	data->minimap.width = 33 * data->minimap.map_size;
-	data->minimap.height = data->new_map.rows * data->minimap.map_size;
-	data->minimap.img.mlx_img = mlx_new_image(data->mlx, data->minimap.width,
-			data->minimap.height);
-	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
-			data->minimap.img.mlx_img, &bpp, &sl, &end);
+	// auto int cl = get_map_columns(data);
+	// printf("\ncolumns: %d, rows: %d\n", cl, data->new_map.rows);
+	data->minimap.width = get_map_columns(data) * MINIMAP_SZ;
+	data->minimap.height = data->new_map.rows * MINIMAP_SZ;
+	data->minimap.img.mlx_img = mlx_new_image(data->mlx, \
+		data->minimap.width, data->minimap.height);
+	data->minimap.img.addr = (unsigned int *) \
+		mlx_get_data_addr(data->minimap.img.mlx_img, &data->minimap.bpp, \
+		&data->minimap.sl, &data->minimap.end);
 }
