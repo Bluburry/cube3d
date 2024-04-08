@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:34:33 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:34:34 by tpinto-e         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 void	clear_matrix(char **mat, int s)
@@ -39,6 +51,8 @@ void	destroy_imgs(t_data *data)
 {
 	if (data->img.mlx_img)
 		mlx_destroy_image(data->mlx, data->img.mlx_img);
+	if (data->minimap.img.mlx_img)
+		mlx_destroy_image(data->mlx, data->minimap.img.mlx_img);
 	if (data->new_map.no.img)
 		mlx_destroy_image(data->mlx, data->new_map.no.img);
 	if (data->new_map.so.img)

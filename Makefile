@@ -21,7 +21,7 @@ PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
 vpath %.c src $(PATHS)
 
 # FILES
-SRCS		= cube hook_functions hook_handle init minimap read_file save_map \
+SRCS		= cube hook_functions hook_handle init minimap read_file \
 	validate_map raycast_start raycast_helper raycast_images_init clean draw\
 	extras get_map rgb checker #draw 
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))

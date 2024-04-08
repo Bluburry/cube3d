@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:34:57 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:42:10 by tpinto-e         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 static int	helper_helper(t_data *data, char *checker, char *ptr)
@@ -93,7 +105,6 @@ static int	line_checker(t_data *data, char *checker, char *ptr)
 int	read_file(char *file, t_data *data)
 {
 	auto char *ptr, *cub, checker[6] = {0, 0, 0, 0, 0, 0};
-
 	cub = ft_strchr(file, '.');
 	if (ft_strcmp(cub, ".cub"))
 		return (1);

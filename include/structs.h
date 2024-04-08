@@ -1,4 +1,16 @@
-#ifndef	STRUCTS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:34:30 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:41:08 by tpinto-e         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef STRUCTS_H
 # define STRUCTS_H
 
 # include "../mlx_linux/mlx_int.h"
@@ -19,7 +31,7 @@ typedef struct s_texture
 // Struct to deal with map.cub
 typedef struct s_map
 {
-	char			**map; // Map array [x, y]
+	char			**map;
 	int				rows; 
 	int				columns;
 	t_texture		no;

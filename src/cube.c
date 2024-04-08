@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:39:56 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:41:55 by tpinto-e         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 static void	check_file(int argc, char **argv)
@@ -31,7 +43,6 @@ static void	check_file(int argc, char **argv)
 static void	validate(char *fl, t_data *data)
 {
 	auto int err = read_file(fl, data);
-
 	if (err)
 	{
 		printf("err: %d\n", err);
@@ -55,6 +66,7 @@ static void	validate(char *fl, t_data *data)
 		printf("Invalid Map - Validate Map\n");
 		on_destroy(data);
 	}
+	data->new_map.columns = get_map_columns(data);
 }
 
 int	main(int ac, char **av)
@@ -65,21 +77,16 @@ int	main(int ac, char **av)
 	init_data(&data);
 	validate(av[1], &data);
 	get_player_position(&data);
-
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3D");
-
 	create_raycast_image(&data);
 	raycast_attempt(&data);
-
 	init_minimap(&data);
 	draw_movements(&data);
-
 	mlx_mouse_move(data.mlx, data.win, WIDTH / 2, HEIGHT / 2);
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &user_input, &data);
 	mlx_hook(data.win, 6, 1L << 6, &mouse_input, &data);
 	mlx_loop(data.mlx);
-
 	return (0);
 }

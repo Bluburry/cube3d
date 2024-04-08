@@ -11,9 +11,8 @@ static	void	check_player(t_data *data, int flag)
 
 void	get_player_position(t_data *data)
 {
-	auto int	x = 0, y, flag_pos = 0;
-	char		pos;
-
+	auto int x = 0, y, flag_pos = 0;
+	auto char pos;
 	while (data->new_map.map[x])
 	{
 		y = 0;

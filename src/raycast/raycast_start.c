@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast_start.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:38:56 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:43:44 by tpinto-e         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 static void	init_r(t_data *data, t_raycast *r)
@@ -81,62 +93,3 @@ void	raycast_attempt(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 }
-
-/*
-void	raycast_attempt(t_data *data)
-{
-	t_raycast	r;
-
-	data->img.mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->img.addr = (unsigned int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.sl, &data->img.ed);
-
-	data->new_map.no.img = mlx_xpm_file_to_image(data->mlx, data->new_map.no.path, &data->new_map.no.width, &data->new_map.no.height);
-	if (!data->new_map.no.img)
-	{
-		printf("ERROR\n");
-		return;
-	}
-	data->new_map.no.addr = (unsigned int *) mlx_get_data_addr(data->new_map.no.img, &data->new_map.no.bpp, &data->new_map.no.sl, &data->new_map.no.ed);
-	data->new_map.so.img = mlx_xpm_file_to_image(data->mlx, data->new_map.so.path, &data->new_map.so.width, &data->new_map.so.height);
-	if (!data->new_map.so.img)
-	{
-		printf("ERROR\n");
-		return;
-	}
-	data->new_map.so.addr = (unsigned int *) mlx_get_data_addr(data->new_map.so.img, &data->new_map.so.bpp, &data->new_map.so.sl, &data->new_map.so.ed);
-	data->new_map.we.img = mlx_xpm_file_to_image(data->mlx, data->new_map.we.path, &data->new_map.we.width, &data->new_map.we.height);
-	if (!data->new_map.we.img)
-	{
-		printf("ERROR\n");
-		return;
-	}
-	data->new_map.we.addr = (unsigned int *) mlx_get_data_addr(data->new_map.we.img, &data->new_map.we.bpp, &data->new_map.we.sl, &data->new_map.we.ed);
-	data->new_map.ea.img = mlx_xpm_file_to_image(data->mlx, data->new_map.ea.path, &data->new_map.ea.width, &data->new_map.ea.height);
-	if (!data->new_map.ea.img)
-	{
-		printf("ERROR\n");
-		return;
-	}
-	data->new_map.ea.addr = (unsigned int *) mlx_get_data_addr(data->new_map.ea.img, &data->new_map.ea.bpp, &data->new_map.ea.sl, &data->new_map.ea.ed);
-
-	r.side.x = 0;
-	r.side.y = 0;
-	r.step_x = 0;
-	r.step_y = 0;
-	auto int x = -1;
-	while (++x <= WIDTH)
-	{
-		r.camera.x = (2 * x) / (double) WIDTH - 1;
-		r.dir.x = data->player.dir.x + data->player.plane.x * r.camera.x;
-		r.dir.y = data->player.dir.y + data->player.plane.y * r.camera.x;
-		r.map_x = (int) data->player.pos.x;
-		r.map_y = (int) data->player.pos.y;
-		r.delta.x = MAX;
-		r.delta.y = MAX;
-		init_r(data, &r);
-		dda(data, &r);
-		draw_vert(data, &r, x);
-	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
-}
-*/

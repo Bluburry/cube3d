@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bluburry <bluburry@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 18:09:59 by bluburry          #+#    #+#             */
-/*   Updated: 2024/04/08 15:15:27 by bluburry         ###   ########.fr       */
+/*   Created: 2024/04/08 16:26:03 by tpinto-e          #+#    #+#             */
+/*   Updated: 2024/04/08 16:36:24 by tpinto-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,16 @@ void	create_raycast_image(t_data *data);
 // minimap.c
 void	get_player_position(t_data *data);
 
-// save_map.c
-int		save_texture_path(char *path, t_data *data);
-int		save_map(char *line, t_data *data);
-
 // get_map.c
 int		get_map_rows(char *file);
 char	**get_map(char *file, int rows);
 
 // validate_map
-int	check_matrix(t_data *data, int i, int j);
-int	check_closed(t_data *data, int i, int j);
-int	check_surrounded(char *map, int rows, int i, int j);
-int	validate_map(t_data *data);
-int	get_row_len(char *row, int i);
+int		check_matrix(t_data *data, int i, int j);
+int		check_closed(t_data *data, int i, int j);
+int		check_surrounded(char *map, int rows, int i, int j);
+int		validate_map(t_data *data);
+int		get_row_len(char *row, int i);
 
 // Bonus
 

@@ -13,7 +13,7 @@ static void	draw_rectangle(t_data *data, int x, int y, long color)
 		j = -1;
 		while (++j < MINIMAP_SZ)
 		{
-			data->minimap.img.addr[(y + i) * 33 \
+			data->minimap.img.addr[(y + i) * data->new_map.columns \
 				* MINIMAP_SZ + x + j] = color;
 		}
 	}

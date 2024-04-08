@@ -36,7 +36,6 @@ void	set_player_position(t_data *data, int x, int y, int pos)
 	data->player.dir.y = 0.0f;
 	data->player.plane.x = 0;
 	data->player.plane.y = 0;
-
 	set_direction(&data->player, pos);
 }
 
@@ -88,9 +87,7 @@ void	init_data(t_data *data)
 
 void	init_minimap(t_data *data)
 {
-	// auto int cl = get_map_columns(data);
-	// printf("\ncolumns: %d, rows: %d\n", cl, data->new_map.rows);
-	data->minimap.width = get_map_columns(data) * MINIMAP_SZ;
+	data->minimap.width = data->new_map.columns * MINIMAP_SZ;
 	data->minimap.height = data->new_map.rows * MINIMAP_SZ;
 	data->minimap.img.mlx_img = mlx_new_image(data->mlx, \
 		data->minimap.width, data->minimap.height);
