@@ -11,7 +11,7 @@ static void	check_file(int argc, char **argv)
 	}
 	fl = argv[1];
 	auto int i = 0;
-	while(fl[i])
+	while (fl[i])
 		i++;
 	if (i < 6 || ft_strncmp(fl + i - 4, ".cub", 4))
 	{
@@ -74,9 +74,14 @@ int	main(int ac, char **av)
 	
 	init_minimap(&data);
 	draw_movements(&data);
+	// mlx_mouse_hide(data.mlx, data.win);
 
+	// mlx_do_key_autorepeaton(data.mlx);
+
+	mlx_mouse_move(data.mlx, data.win, WIDTH / 2, HEIGHT / 2);
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &user_input, &data);	
+	mlx_hook(data.win, 6, 1L << 6, &mouse_input, &data);
 	mlx_loop(data.mlx);
 
 	return (0);

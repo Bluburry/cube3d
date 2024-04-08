@@ -18,20 +18,21 @@ static void	texture_calc(t_data *data, t_raycast *r)
 
 static void	draw_wall(t_data *data, t_raycast *r, int x, int y)
 {
-	auto unsigned int clr = WALL_CLR;
+	auto unsigned int clr = WALL_CLR, *addr;
+	if (r->side_hit == 0)
+		addr = data->new_map.we.addr;
+	else if (r->side_hit == 1)
+		addr = data->new_map.no.addr;
+	else if (r->side_hit == 2)
+		addr = data->new_map.ea.addr;
+	else
+		addr = data->new_map.so.addr;
 	texture_calc(data, r);
 	while (y++ < r->draw_end)
 	{
 		r->tex_y = (int) r->tex_pos & (IMG_HEIGHT - 1);
 		r->tex_pos += r->tex_step;
-		if (r->side_hit == 0)
-			clr = data->new_map.we.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else if (r->side_hit == 1)
-			clr = data->new_map.no.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else if (r->side_hit == 2)
-			clr = data->new_map.ea.addr[r->tex_y * IMG_WIDTH + r->tex_x];
-		else
-			clr = data->new_map.so.addr[r->tex_y * IMG_WIDTH + r->tex_x];
+		clr = addr[r->tex_y * IMG_WIDTH + r->tex_x];
 		if (clr > 0)
 			data->img.addr[y * WIDTH + x] = clr;
 	}
@@ -48,13 +49,9 @@ void	draw_vert(t_data *data, t_raycast *r, int x)
 		r->draw_end = HEIGHT - 1;
 	auto int y = -1;
 	while (++y < r->draw_start)
-	{
 		data->img.addr[y * WIDTH + x] = data->new_map.sky;
-	}
 	draw_wall(data, r, x, y);
 	y = r->draw_end;
 	while (y++ < HEIGHT)
-	{
 		data->img.addr[y * WIDTH + x] = data->new_map.floor;
-	}
 }

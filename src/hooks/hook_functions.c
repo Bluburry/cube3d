@@ -52,10 +52,9 @@ void	move(int keycode, t_data *data)
 	}
 }
 
-void	rotate(int keycode, t_data *data)
+void	rotate(int keycode, double rot, t_data *data)
 {
-	auto double olddir_x = data->player.dir.x, rot = 0.1, oldplane_x = data->player.plane.x;
-
+	auto double olddir_x = data->player.dir.x, oldplane_x = data->player.plane.x;
  	if (keycode == LEFT)
  		rot *= -1;	
 	data->player.p_ang += rot;
@@ -67,7 +66,6 @@ void	rotate(int keycode, t_data *data)
  	data->player.dir.y = olddir_x * sin(rot) + data->player.dir.y * cos(rot);
  	data->player.plane.x = data->player.plane.x * cos(rot) - data->player.plane.y * sin(rot); 
  	data->player.plane.y = oldplane_x * sin(rot) + data->player.plane.y * cos(rot); 
-
- 	raycast_attempt(data);
+	raycast_attempt(data);
 	draw_movements(data);
 }

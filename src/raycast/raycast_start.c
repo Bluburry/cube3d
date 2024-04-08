@@ -65,7 +65,7 @@ void	raycast_attempt(t_data *data)
 	r.side.y = 0;
 	r.step_x = 0;
 	r.step_y = 0;
-	auto int 	x = -1;
+	auto int x = -1;
 	while (++x <= WIDTH)
 	{
 		r.camera.x = (2 * x) / (double) WIDTH - 1;
