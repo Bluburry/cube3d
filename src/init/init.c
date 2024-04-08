@@ -74,6 +74,7 @@ void	init_data(t_data *data)
 {
 	t_image		img;
 	t_player	player;
+	t_minimap	minimap;
 
 	img.mlx_img = NULL;
 	img.addr = NULL;	
@@ -85,8 +86,24 @@ void	init_data(t_data *data)
 	player.dir.x = 0;
 	player.dir.y = 0;
 	data->mlx = NULL;
+	minimap.map_size = 8;
 	data->win = NULL;
 	data->img = img;
+	data->minimap = minimap;
 	data->player = player;
 	init_map(data);
+}
+
+void	init_minimap(t_data *data)
+{
+	int	bpp;
+	int	sl;
+	int	end;
+
+	data->minimap.width = 33 * data->minimap.map_size;
+	data->minimap.height = data->new_map.rows * data->minimap.map_size;
+	data->minimap.img.mlx_img = mlx_new_image(data->mlx, data->minimap.width,
+			data->minimap.height);
+	data->minimap.img.addr = (unsigned int *)mlx_get_data_addr(
+			data->minimap.img.mlx_img, &bpp, &sl, &end);
 }

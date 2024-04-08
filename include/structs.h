@@ -95,6 +95,7 @@ typedef struct s_data
 	t_map		new_map;
 	t_vector	dir;
 	t_player	player;
+	t_minimap	minimap;
 }	t_data;
 
 # endif

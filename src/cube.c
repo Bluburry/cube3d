@@ -50,10 +50,6 @@ static void	validate(char *fl, t_data *data)
 		printf("Error getting map.\n");
 		on_destroy(data);
 	}
-	auto int i = -1;
-	while (data->new_map.map[++i]) {
-		printf("%s", data->new_map.map[i]);
-	}
 	if (validate_map(data))
 	{
 		printf("Invalid Map - Validate Map\n");
@@ -70,19 +66,14 @@ int	main(int ac, char **av)
 	validate(av[1], &data);
 	get_player_position(&data);
 
-	/* printf("row count : %d\n", data.new_map.rows);
-	auto int i = -1;
-	while (data.new_map.map[++i]) {
-		printf("%s", data.new_map.map[i]);
-	}
-	printf("\nNO: %s\nSO: %s\nEA: %s\nWE: %s\n", data.new_map.no.path, \
-		data.new_map.so.path, data.new_map.ea.path, data.new_map.we.path); */
-
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3D");
 
 	create_raycast_image(&data);
 	raycast_attempt(&data);
+	
+	init_minimap(&data);
+	draw_movements(&data);
 
 	mlx_hook(data.win, 17, 1L << 17, &on_destroy, &data);
 	mlx_hook(data.win, 2, 1L << 0, &user_input, &data);	

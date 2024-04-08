@@ -93,4 +93,9 @@ int	check_surrounded(char *map, int rows, int i, int j);
 int	validate_map(t_data *data);
 int	get_row_len(char *row, int i);
 
+// Bonus
+
+void	draw_movements(t_data *data);
+void	draw_rectangles(t_data *data);
+
 #endif

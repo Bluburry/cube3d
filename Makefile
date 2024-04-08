@@ -16,13 +16,13 @@ CC_FLAGS		= -g -O0 -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
 VG				= valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=leaks.log
 
 # DIRECTORIES
-DIRS	= raycast hooks map init clean extras file_validation
+DIRS	= raycast hooks map init clean extras file_validation minimap
 PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
 vpath %.c src $(PATHS)
 
 # FILES
 SRCS		= cube hook_functions hook_handle init minimap read_file save_map \
-	validate_map raycast_start raycast_helper raycast_images_init clean \
+	validate_map raycast_start raycast_helper raycast_images_init clean draw\
 	extras get_map rgb checker #draw 
 OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
 
