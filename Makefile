@@ -1,5 +1,6 @@
 # DEFINITIONS
 NAME			= cub3d
+NAME_BONUS		= cub3d_bonus
 DEPENDENCIES	= include
 CC				= cc
 LIBFT_SRC		= libft
@@ -18,15 +19,14 @@ VG				= valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes 
 # DIRECTORIES
 DIRS	= raycast hooks map init clean extras file_validation minimap
 PATHS	= $(addprefix $(SRC_DIR), $(DIRS))
-vpath %.c src $(PATHS)
+vpath %.c $(SRC_DIR) $(PATHS)
 
 # FILES
-SRCS		= cube hook_functions hook_handle init minimap read_file \
-	validate_map raycast_start raycast_helper raycast_images_init clean draw\
-	extras get_map rgb checker #draw 
-OBJS		= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS))) #$(addsuffix .o, $(SRCS)))
+SRCS	= cube hook_functions hook_handle init minimap read_file validate_map \
+	raycast_start raycast_helper raycast_images_init clean draw extras get_map rgb checker 
+OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS)))
+OBJS_FILES	= .tst
 
-OBJS_FILES	=	.tst
 
 # COMPILATION
 all : $(NAME)
@@ -58,10 +58,21 @@ fclean : clean
 	@$(RM) $(OBJS_FILES) $(LIBFT_NAME) $(MLX_NAME)
 	@$(RM) $(OBJ_DIR)
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_BONUS)
 
 re : fclean all
 
-run : all
+bonus : $(NAME_BONUS)
+
+$(NAME_BONUS) : $(OBJS)
+	@make $(NODIRS) -C $(LIBFT_SRC)
+	@cp $(LIBFT_SRC)/libft.a .
+	@make $(NODIRS) -C $(MLX_FLDR)
+	@cp $(MLX_FLDR)/libmlx_Linux.a .
+	@cp $(MLX_FLDR)/libmlx.a .
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_NAME) $(MLX_FLAGS) -o $(NAME_BONUS)
+
+run :
 	@./$(NAME) $(DEFAULT_MAP)
 
 leaks : all
@@ -72,4 +83,4 @@ debug : all
 
 .SILENT:
 
-.PHONY : all, clean, fclean, re, run, leaks, debug
+.PHONY : all, bonus, clean, fclean, re, run, leaks, debug

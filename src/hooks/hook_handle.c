@@ -17,7 +17,8 @@ int	on_destroy(t_data *data)
 
 int	user_input(int keycode, t_data *data)
 {
-	mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
+	if (data->bonus)
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 	if (keycode == ESC)
 		on_destroy(data);
 	else if (keycode == LEFT || keycode == RIGHT)

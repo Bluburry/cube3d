@@ -49,7 +49,8 @@ void	move(int keycode, t_data *data)
 		data->player.pos.x = new_pos.x;
 		data->player.pos.y = new_pos.y;
 		raycast_attempt(data);
-		draw_movements(data);
+		if (data->bonus)
+			draw_movements(data);
 	}
 }
 
@@ -72,5 +73,6 @@ void	rotate(int keycode, double rot, t_data *data)
 	data->player.plane.y = oldplane_x * sin(rot) + \
 		data->player.plane.y * cos(rot); 
 	raycast_attempt(data);
-	draw_movements(data);
+	if (data->bonus)
+		draw_movements(data);
 }

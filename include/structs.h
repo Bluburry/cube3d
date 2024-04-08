@@ -6,7 +6,7 @@
 /*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:34:30 by tpinto-e          #+#    #+#             */
-/*   Updated: 2024/04/08 16:41:08 by tpinto-e         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:07:49 by tpinto-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_data
 	t_vector	dir;
 	t_player	player;
 	t_minimap	minimap;
+	bool		bonus;
 }	t_data;
 
 #endif
