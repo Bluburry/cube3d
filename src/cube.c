@@ -12,24 +12,15 @@
 
 #include "cube.h"
 
-static void	check_file(int argc, char **argv)
+static void	check_file_cont(char *fl)
 {
-	if (argc != 2)
-	{
-		print_errors("No map file specified.\n");
-		exit(1);
-	}
-	auto char *fl, *cub = ft_strrchr(argv[1], '.');
-	if (ft_strcmp(cub, ".cub"))
-		exit (1);
-	fl = argv[1];
-	auto int i = 0;
-	while (fl[i])
-		i++;
-	if (i < 6 || ft_strncmp(fl + i - 4, ".cub", 4))
+	char	*cub;
+
+	cub = ft_strrchr(fl, '.');
+	if (!cub && ft_strcmp(cub, ".cub"))
 	{
 		print_errors("Invalid map file format.\n");
-		exit(1);
+		exit (1);
 	}
 	auto int fd = open(fl, O_RDONLY);
 	if (fd < 1)
@@ -39,6 +30,26 @@ static void	check_file(int argc, char **argv)
 		exit(1);
 	}
 	close(fd);
+}
+
+static void	check_file(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		print_errors("No map file specified.\n");
+		exit(1);
+	}
+	auto char *fl;
+	fl = argv[1];
+	auto int i = 0;
+	while (fl[i])
+		i++;
+	if (i < 5 || ft_strncmp(fl + i - 4, ".cub", 4))
+	{
+		print_errors("Invalid map file format.\n");
+		exit (1);
+	}
+	check_file_cont(argv[1]);
 }
 
 static void	validate(char *fl, t_data *data)
