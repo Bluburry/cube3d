@@ -77,6 +77,7 @@ void	init_data(t_data *data)
 	player.dir.y = 0;
 	minimap.height = 50;
 	minimap.width = 50;
+	minimap.img.mlx_img = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = img;

@@ -13,7 +13,7 @@ DEFAULT_MAP		= maps/map.cub
 NODIRS			= --no-print-directory
 MLX_FLDR		= mlx_linux
 MLX_FLAGS		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-CC_FLAGS		= -g -O0 -Wall -Werror -Wextra -lm  -I $(DEPENDENCIES) -O3
+CC_FLAGS		= -g -O0 -Wall -Werror -Wextra -I $(DEPENDENCIES) -O3 #-lm  
 VG				= valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=leaks.log
 
 # DIRECTORIES
@@ -41,7 +41,7 @@ $(NAME) : $(OBJS)
 
 $(OBJ_DIR)%.o : %.c | $(OBJS_FILES)
 	@echo "Compiling: $<"
-	@$(CC) $(CC_FLAGS) $(MLX_FLAGS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(OBJS_FILES) :
 	@mkdir -p $(OBJ_DIR)
