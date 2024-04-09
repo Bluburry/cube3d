@@ -44,7 +44,7 @@ void	create_raycast_image(t_data *data)
 	if (!data->new_map.no.img || !data->new_map.so.img || \
 		!data->new_map.ea.img || !data->new_map.we.img)
 	{
-		printf("Error - Invalid textures.\n");
+		print_errors("Error - Invalid textures.\n");
 		on_destroy(data);
 	}
 	raycast_images_helper(data);

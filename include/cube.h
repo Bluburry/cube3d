@@ -34,9 +34,10 @@ void	draw_vert(t_data *data, t_raycast *r, int x);
 // extras.c
 char	*cpy_line(const char *src);
 int		get_map_columns(t_data *data);
+void	print_errors(char *str);
 
 // checker.c
-int		final_checker(int fd, char *checker, char *ptr);
+int		final_checker(int fd, int ret, char *checker, char *ptr);
 
 // rgb.c
 int		creatergb(unsigned int *clr, char *sub_str);
@@ -60,7 +61,7 @@ void	move(int keycode, t_data *data);
 void	rotate(int keycode, double rot, t_data *data);
 
 // hook_handle.c
-int		user_input(int keycode, t_data *data); 
+int		user_input(int keycode, t_data *data);
 int		on_destroy(t_data *data);
 int		mouse_input(int x, int y, t_data *data);
 

@@ -9,11 +9,11 @@ int	check_matrix(t_data *data, int i, int j)
 	{
 		row_index = i + index[n][0];
 		col_index = j + index[n][1];
-		if (row_index >= 0 && col_index >= 0) 
+		if (row_index >= 0 && col_index >= 0)
 		{
 			if (data->new_map.map[row_index][col_index] != '1' && \
 				data->new_map.map[row_index][col_index] != ' ' && \
-				data->new_map.map[row_index][col_index] != '\0') 
+				data->new_map.map[row_index][col_index] != '\0')
 				return (1);
 		}
 		n++;
@@ -21,44 +21,9 @@ int	check_matrix(t_data *data, int i, int j)
 	return (0);
 }
 
-/*int	check_matrix(t_data *data, int i, int j)
-{
-	auto int	m = 0, y, x, n;
-
-	y = j;
-	while (m < 3)
-	{	
-		n = 0;
-		x = i;
-		while (n < 3)
-		{
-			if (x > 0 && y > 0)
-			{
-				// printf("Line: %d |%s| \n\n", i, data->new_map.map[x - 1][y - 1]);
-				// printf("Line: %d |%s| \n\n", i, data->new_map.map[i]);
-				// printf("Line: %d |%s| \n\n", i, data->new_map.map[i]);
-				if (data->new_map.map[x - 1][y - 1] != '1' && \
-					data->new_map.map[x - 1][y - 1] != ' ' && \
-					data->new_map.map[x - 1][y - 1] != '\0')
-				{
-					// printf("Line: %d |%s| \n\n", i, data->new_map.map[i]);
-					
-					// printf("Value: |%c| - X:%d - Y:%d\n", data->new_map.map[x - 1][y - 1], x, y);
-					return (1);
-				}
-			}
-			x++;
-			n++;
-		}
-		y++;
-		m++;
-	}
-	return (0);
-}*/
-
 int	get_row_len(char *row, int i)
 {
-	char *cut;
+	char	*cut;
 
 	(void) i;
 	if (!row)
@@ -72,8 +37,8 @@ int	get_row_len(char *row, int i)
 int	check_closed(t_data *data, int i, int j)
 {
 	if (get_row_len(data->new_map.map[i], i) > \
-		get_row_len(data->new_map.map[i - 1], i-1) \
-		&& get_row_len(data->new_map.map[i - 1], i-1) - 1 < j)
+		get_row_len(data->new_map.map[i - 1], i - 1) && \
+		get_row_len(data->new_map.map[i - 1], i - 1) - 1 < j)
 	{
 		if (data->new_map.map[i][j] != '1' && j < \
 		get_row_len(data->new_map.map[i], i))
@@ -97,26 +62,6 @@ int	check_closed(t_data *data, int i, int j)
 	return (0);
 }
 
-/*int	check_closed(t_data *data, int i, int j)
-{
-	if (ft_strlen(data->new_map.map[i]) > ft_strlen(data->new_map.map[i - 1]) \
-		&& (int)ft_strlen(data->new_map.map[i - 1]) - 1 < j)
-	{
-		if (data->new_map.map[i][j] != '1')
-			return (1);
-	}
-	if (ft_strlen(data->new_map.map[i]) > ft_strlen(data->new_map.map[i + 1]) \
-		&& (int)ft_strlen(data->new_map.map[i + 1]) - 1 < j)
-	{
-		if (data->new_map.map[i][j] != '1')
-			return (1);
-	}
-	if (data->new_map.map[i][j] == ' ')
-		if (check_matrix(data, i, j))
-			return (1);
-	return (0);
-}*/
-
 int	check_surrounded(char *map, int rows, int i, int j)
 {
 	char *cut_map;
@@ -126,7 +71,7 @@ int	check_surrounded(char *map, int rows, int i, int j)
 	{
 		if (map[j] != '1' && map[j] != ' ' && map[j] != '\n')
 		{
-			printf("1st or Last rows differ from 1 or Space. \n");
+			print_errors("1st or Last rows differ from 1 or Space. \n");
 			return (free(cut_map), 1);
 		}
 	}
@@ -134,7 +79,7 @@ int	check_surrounded(char *map, int rows, int i, int j)
 	{
 		if (cut_map[0] != '1' || cut_map[ft_strlen(cut_map) - 1] != '1')
 		{
-			printf("Side walls differ from 1. \n");
+			print_errors("Side walls differ from 1. \n");
 			return (free(cut_map), 1);
 		}
 	}
@@ -150,21 +95,12 @@ int	validate_map(t_data *data)
 		while (data->new_map.map[i][++j] && data->new_map.map[i][j] != '\n')
 		{
 			if (!ft_strchr("NSWE10 ", data->new_map.map[i][j]))
-			{
-				printf("OK1 - |%c|\n", data->new_map.map[i][j]);
 				return (1);
-			}
 			if (check_surrounded(data->new_map.map[i], data->new_map.rows - 1, i, j))
-			{
-				printf("OK2\n");
 				return (1);
-			}
 			if (i > 0 && i < data->new_map.rows - 1)
 				if (check_closed(data, i, j))
-				{
-					printf("OK3\n");
 					return (1);
-				}
 		}
 	}
 	return (0);

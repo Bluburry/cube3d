@@ -4,7 +4,7 @@ static	void	check_player(t_data *data, int flag)
 {
 	if (!flag)
 	{
-		printf("No player was set.\n");
+		print_errors("No player was set.\n");
 		on_destroy(data);
 	}
 }
@@ -23,7 +23,7 @@ void	get_player_position(t_data *data)
 			{
 				if (flag_pos == 1)
 				{
-					printf("More than 1 player\n");
+					print_errors("More than 1 player\n");
 					on_destroy(data);
 				}
 				set_player_position(data, x, y, pos);

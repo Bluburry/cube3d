@@ -32,7 +32,7 @@ typedef struct s_texture
 typedef struct s_map
 {
 	char			**map;
-	int				rows; 
+	int				rows;
 	int				columns;
 	t_texture		no;
 	t_texture		so;

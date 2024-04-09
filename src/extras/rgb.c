@@ -45,14 +45,14 @@ int	creatergb(unsigned int *clr, char *sub_str)
 	{
 		if (i >= 3 || values[i][0] == 0 || values[i][0] == '\n')
 		{
-			printf("Wrong rgb values!\n");
+			print_errors("Wrong rgb values!\n");
 			clear_matrix(values, -1);
 			return (0);
 		}
 		rgb[i] = ft_atoi(values[i]);
 		if (rgb[i] > 255 || rgb[i] < 0)
 		{
-			printf("rgb wrong value!\n");
+			print_errors("rgb wrong value!\n");
 			clear_matrix(values, -1);
 			return (0);
 		}

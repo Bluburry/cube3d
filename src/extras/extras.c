@@ -23,7 +23,7 @@ char	*cpy_line(const char *src)
 	auto char *dst = (char *) malloc ((s) * sizeof(char));
 	if (!dst)
 	{
-		printf("Memory allocation error.\n");
+		print_errors("Memory allocation error.\n");
 		return (NULL);
 	}
 	ft_memcpy(dst, src + i, s - 1);

@@ -14,26 +14,27 @@
 
 static void	check_file(int argc, char **argv)
 {
-	char	*fl;
-
 	if (argc != 2)
 	{
-		printf("No map file specified.\n");
+		print_errors("No map file specified.\n");
 		exit(1);
 	}
+	auto char *fl, *cub = ft_strrchr(argv[1], '.');
+	if (ft_strcmp(cub, ".cub"))
+		exit (1);
 	fl = argv[1];
 	auto int i = 0;
 	while (fl[i])
 		i++;
 	if (i < 6 || ft_strncmp(fl + i - 4, ".cub", 4))
 	{
-		printf("Invalid map file format.\n");
+		print_errors("Invalid map file format.\n");
 		exit(1);
 	}
 	auto int fd = open(fl, O_RDONLY);
 	if (fd < 1)
 	{
-		printf("Could not open file.\n");
+		print_errors("Could not open file.\n");
 		close(fd);
 		exit(1);
 	}
@@ -46,24 +47,24 @@ static void	validate(char *fl, t_data *data)
 	if (err)
 	{
 		printf("err: %d\n", err);
-		printf("Invalid File - Read File\n");
+		print_errors("Invalid File - Read File\n");
 		on_destroy(data);
 	}
 	data->new_map.rows = get_map_rows(fl);
 	if (data->new_map.rows < 3)
 	{
-		printf("Invalid map - row count.\n");
+		print_errors("Invalid map.\n");
 		on_destroy(data);
 	}
 	data->new_map.map = get_map(fl, data->new_map.rows);
 	if (!data->new_map.map)
 	{
-		printf("Error getting map.\n");
+		print_errors("Error getting map.\n");
 		on_destroy(data);
 	}
 	if (validate_map(data))
 	{
-		printf("Invalid Map - Validate Map\n");
+		print_errors("Invalid Map - Validate Map\n");
 		on_destroy(data);
 	}
 	data->new_map.columns = get_map_columns(data);
@@ -71,7 +72,6 @@ static void	validate(char *fl, t_data *data)
 
 int	main(int ac, char **av)
 {
-	printf("%s\n", av[0]);
 	auto t_data data;
 	check_file(ac, av);
 	init_data(&data);

@@ -22,7 +22,7 @@ static int	helper_helper(t_data *data, char *checker, char *ptr)
 	{
 		if (creatergb(&data->new_map.floor, ptr + i) == 0)
 		{
-			printf("Invalid RGB\n");
+			print_errors("Invalid RGB\n");
 			return (2);
 		}
 		checker[4]++;
@@ -32,7 +32,7 @@ static int	helper_helper(t_data *data, char *checker, char *ptr)
 	{
 		if (creatergb(&data->new_map.sky, ptr + i) == 0)
 		{
-			printf("Invalid RGB\n");
+			print_errors("Invalid RGB\n");
 			return (2);
 		}
 		checker[5]++;
@@ -104,24 +104,27 @@ static int	line_checker(t_data *data, char *checker, char *ptr)
 */
 int	read_file(char *file, t_data *data)
 {
-	auto char *ptr, *cub, checker[6] = {0, 0, 0, 0, 0, 0};
-	cub = ft_strchr(file, '.');
-	if (ft_strcmp(cub, ".cub"))
-		return (1);
+	auto char *ptr, checker[6] = {0, 0, 0, 0, 0, 0}, i;
 	auto int fd = open(file, O_RDONLY), op = 1;
 	if (fd < 0)
-		return (perror("File does not exist"), 1);
+		return (print_errors("File does not exist"), 1);
 	while (op == 1)
 	{
 		ptr = get_next_line(fd, 1000);
+		i = 0;
+		while (ptr && *ptr && *ptr == ' ')
+		{
+			ptr++;
+			i++;
+		}
 		if (!ptr)
 			break ;
 		op = line_checker(data, checker, ptr);
+		while (i-- > 0)
+			ptr--;
 		free(ptr);
 	}
-	if (op == 2)
-		return (1);
-	auto int ret = final_checker(fd, checker, ptr);
+	auto int ret = final_checker(fd, op, checker, ptr);
 	close(fd);
 	return (ret);
 }

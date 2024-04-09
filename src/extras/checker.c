@@ -62,12 +62,17 @@ static int	valid_map_helper(char *str, int *map)
 	ret = 3 -> invalid character found in map section
 	ret = 4 -> invalid map configuration (divided map)
 */
-int	final_checker(int fd, char *checker, char *ptr)
+int	final_checker(int fd, int ret, char *checker, char *ptr)
 {
-	auto int ret = 0, i = -1, map = -1;
-	while (++i < 6)
+	auto int i = -1, map = -1;
+	if (ret == 1)
+		ret = 0;
+	while (!ret && ++i < 6)
 		if (checker[i] != 1)
+		{
+			printf("%d\n", checker[i]);
 			ret = 2;
+		}
 	while (1)
 	{
 		ptr = get_next_line(fd, 1000);
