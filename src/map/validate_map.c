@@ -45,8 +45,8 @@ int	check_closed(t_data *data, int i, int j)
 			return (1);
 	}
 	if (get_row_len(data->new_map.map[i], i) > \
-		get_row_len(data->new_map.map[i + 1], i+1) \
-		&& get_row_len(data->new_map.map[i + 1], i+1) - 1 < j)
+		get_row_len(data->new_map.map[i + 1], i + 1) \
+		&& get_row_len(data->new_map.map[i + 1], i + 1) - 1 < j)
 	{
 		if (data->new_map.map[i][j] != '1' && j < \
 		get_row_len(data->new_map.map[i], i) \
@@ -64,7 +64,7 @@ int	check_closed(t_data *data, int i, int j)
 
 int	check_surrounded(char *map, int rows, int i, int j)
 {
-	char *cut_map;
+	char	*cut_map;
 
 	cut_map = ft_strtrim(map, " \n");
 	if (i == 0 || i == rows)
@@ -96,7 +96,8 @@ int	validate_map(t_data *data)
 		{
 			if (!ft_strchr("NSWE10 ", data->new_map.map[i][j]))
 				return (1);
-			if (check_surrounded(data->new_map.map[i], data->new_map.rows - 1, i, j))
+			if (check_surrounded(data->new_map.map[i], \
+				data->new_map.rows - 1, i, j))
 				return (1);
 			if (i > 0 && i < data->new_map.rows - 1)
 				if (check_closed(data, i, j))

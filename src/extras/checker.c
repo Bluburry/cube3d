@@ -68,11 +68,13 @@ int	final_checker(int fd, int ret, char *checker, char *ptr)
 	if (ret == 1)
 		ret = 0;
 	while (!ret && ++i < 6)
+	{
 		if (checker[i] != 1)
 		{
 			printf("%d\n", checker[i]);
 			ret = 2;
 		}
+	}
 	while (1)
 	{
 		ptr = get_next_line(fd, 1000);
