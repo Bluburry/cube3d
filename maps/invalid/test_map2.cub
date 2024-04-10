@@ -1,5 +1,5 @@
 NO ./maps/textures/mud.xpm
-SO ./maps/textures/bricks.xpm
+SO ./maps/textures/wrong.xpm
 WE ./maps/textures/dirt.xpm
 EA ./maps/textures/coal.xpm
 F 220,100,0

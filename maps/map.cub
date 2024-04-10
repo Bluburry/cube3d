@@ -1,6 +1,6 @@
 NO     ./maps/textures/bricks.xpm   
 SO   ./maps/textures/mud.xpm    
-WE ./maps/textures/dirt.xpm
+WE maps/textures/dirt.xpm
 EA     ./maps/textures/coal.xpm   
 
 F       40,       40,   40
