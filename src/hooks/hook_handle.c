@@ -45,9 +45,9 @@ int	mouse_input(int x, int y, t_data *data)
 	mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
 	x -= WIDTH / 2;
 	if (x < 0)
-		rotate(LEFT, 0.013, data);
+		rotate(LEFT, 0.03, data);
 	else if (x != 0)
-		rotate(RIGHT, 0.013, data);
+		rotate(RIGHT, 0.03, data);
 	if (x != 0)
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
