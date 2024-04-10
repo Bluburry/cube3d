@@ -1,6 +1,6 @@
 # DEFINITIONS
-NAME			= cub3d
-NAME_BONUS		= cub3d_bonus
+NAME			= cub3D
+NAME_BONUS		= cub3D_bonus
 DEPENDENCIES	= include
 CC				= cc
 LIBFT_SRC		= libft
