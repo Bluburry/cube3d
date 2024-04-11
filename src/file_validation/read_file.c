@@ -6,7 +6,7 @@
 /*   By: tpinto-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:34:57 by tpinto-e          #+#    #+#             */
-/*   Updated: 2024/04/08 16:42:10 by tpinto-e         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:25:43 by tpinto-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,16 @@ static int	line_checker(t_data *data, char *checker, char *ptr)
 */
 int	read_file(char *file, t_data *data)
 {
-	auto char *ptr, checker[6] = {0, 0, 0, 0, 0, 0}, i;
+	auto char *ptr, checker[6] = {0, 0, 0, 0, 0, 0};
 	auto int fd = open(file, O_RDONLY), op = 1;
 	if (fd < 0)
 		return (print_errors("File does not exist"), 1);
 	while (op == 1)
 	{
 		ptr = get_next_line(fd, 1000);
-		i = 0;
-		while (ptr && *ptr && *ptr == ' ')
-		{
-			ptr++;
-			i++;
-		}
 		if (!ptr)
 			break ;
 		op = line_checker(data, checker, ptr);
-		while (i-- > 0)
-			ptr--;
 		free(ptr);
 	}
 	auto int ret = final_checker(fd, op, checker, ptr);
